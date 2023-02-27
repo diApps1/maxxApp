@@ -14,4 +14,10 @@ export class Tab1Page {
   goToLandingPage() {
     this.router.navigateByUrl('landing-page')
   }
+  goToLogin() {
+    this.router.navigateByUrl('login')
+  }
+  goToSignUp() {
+    this.router.navigateByUrl('signup')
+  }
 }

@@ -5,15 +5,15 @@
     <div class="header-wrapper">
       <ion-row>
         <ion-col size="4">
-          <ion-avatar>
-            <img alt="Silhouette of a person's head" src="assets/img/female-avatar.jpg" />
+          <ion-avatar (click)="navigate()">
+            <img alt="Silhouette of a person's head" src="assets/img/female-avatar.png" />
           </ion-avatar>
         </ion-col>
         <ion-col size="4" class="text-center">
           Logo
         </ion-col>
         <ion-col size="4" class="text-right">
-          <ion-icon class="icon-background" name="notifications"></ion-icon>
+          <ion-icon (click)="goToSettings()" class="icon-background" name="settings"></ion-icon>
         </ion-col>
       </ion-row>
     </div>
@@ -46,7 +46,7 @@
         </ion-col>
         <ion-col size="6">
           <ion-card style="background: #F2B5BC;
-          background-image: url(./assets/img/female-avatar.jpg);
+          background-image: url(./assets/img/female-avatar.png);
           background-size: cover;
           background-position: center;">
                     <ion-badge class="service-badge">Plumber</ion-badge>
@@ -54,7 +54,8 @@
           </ion-card>
         </ion-col>
         <ion-col size="6" >
-          <ion-card style="background: #F9D942; background-image: url(./assets/img/male-avatar.png);
+          <ion-card (click)="openServiceProviders()"
+           style="background: #F9D942; background-image: url(./assets/img/male-avatar.png);
           background-size: cover;
           background-position: center;">
           <ion-badge class="service-badge">Plumber</ion-badge>

@@ -1,4 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -6,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-page.page.scss'],
 })
 export class LandingPagePage implements OnInit {
-
-  constructor() { }
+  isUserLoggedIn: boolean = false;
+  constructor(private router: Router,private location:Location) { }
 
   ngOnInit() {
+  }
+
+  navigate() {
+    if (this.isUserLoggedIn) {
+      this.router.navigateByUrl('profile');
+    } else {
+      this.router.navigateByUrl('login');
+    }
+  }
+
+  openServiceProviders() {
+    this.router.navigateByUrl('service-providers');
+  }
+
+  goToSettings() {
+    this.router.navigateByUrl('settings')
   }
 
 }
