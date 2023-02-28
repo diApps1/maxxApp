@@ -34,7 +34,7 @@
             <ion-input placeholder="password" formControlName="password"></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-button (click)="submitLogin()" expand="block">Login</ion-button>
+            <ion-button [disabled]="loginForm.invalid" (click)="submitLogin()" expand="block">Login</ion-button>
           </ion-col>
         </ion-row>
       </form>
