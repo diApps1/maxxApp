@@ -16,26 +16,68 @@
 
   <div class="login-content-wrapper">
     <ion-grid class="login-content-outer">
-      <ion-row>
-        <ion-col size="12" >
-          <h1>Get Started!</h1>
-          <p>Create you new account</p>
-        </ion-col>
-        <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
-          <ion-avatar>
-          <img alt="Silhouette of a person's head" src="assets/img/female-avatar.png" />
-        </ion-avatar>
-        </ion-col>
-        <ion-col size="12" class="mb-3">
-          <ion-input placeholder="user name or email"></ion-input>
-        </ion-col>
-        <ion-col size="12" class="mb-3">
-          <ion-input placeholder="password"></ion-input>
-        </ion-col>
-        <ion-col size="12">
-          <ion-button (click) = "submitSignup()" expand="block">Create Account</ion-button>
-        </ion-col>
-      </ion-row>
+      <form >
+
+        <ion-row>
+          <ion-col size="12" >
+            <h1>Get Started!</h1>
+            <p>Create you new account</p>
+          </ion-col>
+          <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
+            <ion-avatar>
+            <img alt="Silhouette of a person's head" src="assets/img/female-avatar.png" />
+          </ion-avatar>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!nextPage">
+          
+          <ion-col size="12" class="mb-3">
+            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="first name"></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="last name"></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="email"></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-button (click)="changeView()" expand="block" >Next</ion-button>
+          </ion-col>
+  
+         
+        </ion-row>
+
+
+        <ion-row *ngIf="nextPage">
+          
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="password"></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="confirm password"></ion-input>
+          </ion-col>
+          <ion-col size="6" class="mb-3">
+            <ion-input type="tel" placeholder="phone_number"></ion-input>
+          </ion-col>
+          <ion-col size="6" class="mb-3" *ngIf="!otpSent">
+            <ion-button (click)="sendOtp()" expand="block" >send otp</ion-button>
+          </ion-col>
+          <ion-col size="6" class="mb-3" *ngIf="otpSent">
+            <ion-input type="tel" placeholder="verify otp"></ion-input>
+          </ion-col>
+         <span class="resendText" *ngIf="otpSent"> resend in 2 sec</span>
+          <ion-col size="6">
+            <ion-button
+             (click) = "changeView()" expand="block">Back</ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button
+             (click) = "submitSignup()" expand="block">Create Account</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+     
     </ion-grid>
   </div>
 
