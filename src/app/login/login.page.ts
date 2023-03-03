@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { ToasterService } from '../toaster.service';
 
 @Component({
@@ -11,11 +13,12 @@ import { ToasterService } from '../toaster.service';
 export class LoginPage implements OnInit {
   loginForm : any
 
-  constructor(private location : Location , private toast : ToasterService) {
+  constructor(private location : Location, private router : Router,
+     private auth_service : AuthService,
+     private toast : ToasterService) {
     this.loginForm = new FormGroup({
-      userName : new  FormControl('' , Validators.required),
-      password : new FormControl('' , [Validators.required,Validators.pattern
-      ('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])
+      email : new  FormControl('' , Validators.required),
+      password : new FormControl('' , Validators.required,)
     });
    }
 
@@ -27,8 +30,19 @@ export class LoginPage implements OnInit {
   }
 
   submitLogin() {
-    console.log(this.loginForm.value)
-    this.toast.presentToast('login succesfully');
+    console.log(this.loginForm.value);
+    this.auth_service.loginAccount(this.loginForm.value).subscribe((res:any) => {
+      console.log(res)
+      if(res.status) {
+        this.toast.presentToast(res.message);
+        this.router.navigateByUrl('landing-page')
+      } else {
+        this.toast.presentToast(res.message);
+      }
+    },(err:any) => {
+      console.log(err)
+      this.toast.presentToast(err.error.message);
+    })
   }
 
   

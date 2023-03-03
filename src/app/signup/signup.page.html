@@ -52,13 +52,13 @@
         <ion-row *ngIf="nextPage">
           
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="password"></ion-input>
+            <ion-input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="confirm password"></ion-input>
+            <ion-input [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="confirm password"></ion-input>
           </ion-col>
           <ion-col size="6" class="mb-3">
-            <ion-input type="tel" placeholder="phone_number"></ion-input>
+            <ion-input [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="phone_number"></ion-input>
           </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="!otpSent">
             <ion-button (click)="sendOtp()" expand="block" >send otp</ion-button>
