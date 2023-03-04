@@ -1,0 +1,22 @@
+ion-content {
+    --ion-background-color: #F9D942;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+
+}
+
+
+
+.login-content-wrapper {
+    height: 100%;
+    background-color: aliceblue;
+    // margin-top: 50px;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+}
+
+.login-content-wrapper .login-content-outer {
+    padding: 12px;
+}

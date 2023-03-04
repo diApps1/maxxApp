@@ -22,4 +22,9 @@ export class AuthService {
   let api = this.initial_url + 'login';
   return this.http.post(api , body , {headers : this._headers});
 }
+getProfileByID(token : any) {
+  let api = this.initial_url + 'profile';
+  return this.http.get(api , );
+
+}
 }

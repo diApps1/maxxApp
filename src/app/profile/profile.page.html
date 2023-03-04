@@ -1,0 +1,54 @@
+
+<ion-content>
+
+  <div class="login-header-wrapper">
+    <ion-grid>
+      <ion-row class="mt-5">
+        <ion-col size="4">
+          <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="login-content-wrapper">
+    <ion-grid class="login-content-outer">
+      <form>
+        <ion-row>
+          <ion-col size="12" >
+            <h1>Update Profile!</h1>
+            <p>Edit Your Information</p>
+          </ion-col>
+          <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
+            <ion-avatar >
+              <img alt="Silhouette of a person's head" src="https://img.freepik.com/free-photo/smiling-businessman-face-portrait-wearing-suit_53876-148138.jpg?w=740&t=st=1677851030~exp=1677851630~hmac=d025d4ec62efb91e0645d0b5ef42a34c22df7e99c05677960f3c08bb3bcced52" />
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="First Name" ></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="Last Name"></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="Email" readonly></ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-select interface="popover" placeholder="gender">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-input placeholder="Date of Birth"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button  expand="block">Update</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+      
+    </ion-grid>
+  </div>
+
+</ion-content>
