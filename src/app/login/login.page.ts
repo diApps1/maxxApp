@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { EventProviderService } from '../services/event-provider.service';
@@ -14,14 +14,15 @@ import { ToasterService } from '../toaster.service';
 export class LoginPage implements OnInit {
   loginForm : any
 
-  constructor(private location : Location,
+  constructor(private location : Location, private fb : FormBuilder,
      private router : Router,private event_provider : EventProviderService,
      private auth_service : AuthService,
      private toast : ToasterService) {
-    this.loginForm = new FormGroup({
-      email : new  FormControl('' , Validators.required),
-      password : new FormControl('' , Validators.required,)
-    });
+
+      this.loginForm = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]],
+      });
    }
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class LoginPage implements OnInit {
       console.log(res)
       if(res.success) { 
         this.event_provider.isuserloggedin(true);
-        this.toast.presentToast(res.message);
+        this.toast.presentToast(res.message , 'success');
         localStorage.setItem('access_token' , res.access_token);
         this.router.navigateByUrl('landing-page')
       } else {

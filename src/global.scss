@@ -185,7 +185,8 @@ ion-tab-bar {
   padding: 12px;
   width: 100px;
   height: 100px;
-  background-color: gray;
+  background-color: #fff;
+  border-radius: 22px;
   // background: url(./assets/img/plus-image.png);
   background-position: center;
   background-size: cover;
@@ -193,9 +194,9 @@ ion-tab-bar {
 
 
 ion-toast.custom-toast {
-  --background: green;
+  // --background: green;
   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-  --color: #fff;
+  // --color: #fff;
   // font-size: 12px;
   padding: 22px;
   border-radius: 12px;  
@@ -204,5 +205,26 @@ ion-toast.custom-toast {
 // ion-toast.custom-toast::part(message) {
 //   font-style: italic;
 // }
+
+
+// ion-datetime {
+//   --background: #2D2B4E;
+//   // --background-rgb: 255, 241, 242;
+//   color: #fff;
+
+
+//   --border-radius: 22px !important;
+//   box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+// }
+
+// ion-datetime-button {
+//   border-radius: 22px !important;
+// }
+
+// ion-datetime.picker-item {
+//   --background: #2D2B4E;
+//   color: #2D2B4E;
+// }
+
 
 

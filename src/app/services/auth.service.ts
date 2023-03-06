@@ -24,7 +24,7 @@ export class AuthService {
 }
 getProfileByID(token : any) {
   let api = this.initial_url + 'profile';
-  return this.http.get(api , );
+  return this.http.get(api , {headers : this._headers}  );
 
 }
 }

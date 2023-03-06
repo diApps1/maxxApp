@@ -7,9 +7,9 @@
         <ion-col size="4">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="8" class="text-left mt-3">
-          <h1>250.00 AED</h1>
-        </ion-col>
+        <!-- <ion-col size="8">
+        <img src="assets/img/logo.png" alt="">
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -17,26 +17,34 @@
   <div class="login-content-wrapper">
     <ion-grid class="login-content-outer">
       <ion-row>
-        <ion-col size="12" >
-          <h1>Adeel Sajjad.!</h1>
-          <p>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            (445) jobs done
-          </p>
-          <small>I ensure you to done my job with full zeal and heast.i am the one man of my work.i am the best what  i can do.</small>
+        <h1>250 AED</h1>
+        <ion-col size="12" class="text-center">
+          <!-- <p class="day_buttons ">
+            <ion-badge (click)="makeTrue(i)"
+             *ngFor="let days of weekNameArray;index as i"
+            [ngClass]="{'active' : days.active}">
+             <p>{{days.dayName}}</p><p>17 June</p> </ion-badge>
+          </p> -->
+          <p>When You Want Our Service?</p>
+          <ion-datetime-button class="mb-5" presentation="date-time" datetime="datetime"></ion-datetime-button>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime [preferWheel]="true" id="datetime"></ion-datetime>
+  </ng-template>
+</ion-modal>
+          <small>we ensure you to done your job with full zeal and heast.
+            we are the best in our work.i am the best what  i can do.</small>
         </ion-col>
         <ion-col size="12" class="text-center">
-          <small>upload a picture of work you want to done by me</small>
+          <h6>upload a picture of work you want to done by us</h6>
         </ion-col>
-        <!-- <ion-col size="12" class="mb-3 text-center upload-img-card-outer">
+        <ion-col size="12" class="mb-3 text-center upload-img-card-outer">
           <ion-card class="upload-img-card">
+            <img src="assets/img/image-outline.svg" alt="">
           </ion-card>
-        </ion-col> -->
-        <ion-col size="12" class="mb-3">
+        </ion-col>
+        <ion-col size="12" class="mb-3 text-center">
+          <p>Choose Payment Method</p>
         </ion-col>
         <ion-col size="12">
           <ion-button (click)="bookMe()" expand="block">Book Me</ion-button>

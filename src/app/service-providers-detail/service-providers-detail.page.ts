@@ -10,9 +10,24 @@ import { ToasterService } from '../toaster.service';
 })
 export class ServiceProvidersDetailPage implements OnInit {
 
+  weekNameArray : any = [
+    {dayName : 'MON' , active : true},
+    {dayName : 'TUE' , active : false},
+    {dayName : 'WED' , active : false},
+    {dayName : 'THU' , active : false},
+    {dayName : 'FRI' , active : false},
+    {dayName : 'SAT' , active : false},
+    {dayName : 'SUN' , active : false},
+];
   constructor(private location : Location,private toastController: ToastController , private toaster : ToasterService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  makeTrue(index:any) {
+    this.weekNameArray.forEach((element : any) => {
+      element.active = false;
+    });
+    this.weekNameArray[index].active = true;
   }
 
   back() {

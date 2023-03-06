@@ -9,11 +9,12 @@ export class ToasterService {
 
 
   
-  async presentToast(text?:any , position?: 'top') {
+  async presentToast(text?:any , colors? : any) {
     const toast = await this.toastController.create({
       message: text,
       duration: 3000,
       cssClass: 'custom-toast',
+      color : colors
       // buttons: [
       //   {
       //     text: 'Dismiss',

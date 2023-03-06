@@ -36,7 +36,7 @@ export class LandingPagePage implements OnInit {
   }
 
   openServiceProviders() {
-    this.router.navigateByUrl('service-providers');
+    this.router.navigateByUrl('service-providers-detail');
   }
 
   goToSettings() {

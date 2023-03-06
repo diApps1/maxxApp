@@ -33,13 +33,14 @@
         <ion-row *ngIf="!nextPage">
           
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="first name"></ion-input>
+            <ion-input maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="first name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="last name"></ion-input>
+            <ion-input maxlength="8" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="last name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="email"></ion-input>
+            <ion-input
+             [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="email"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-button (click)="changeView()" expand="block" >Next</ion-button>
@@ -52,28 +53,37 @@
         <ion-row *ngIf="nextPage">
           
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"></ion-input>
+            <ion-input type="password" maxlength="16" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="confirm password"></ion-input>
+            <ion-input type="password" maxlength="16" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="confirm password"></ion-input>
           </ion-col>
-          <ion-col size="6" class="mb-3">
-            <ion-input [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="phone_number"></ion-input>
+          <ion-col [size]="isOtpVerified ? '12' : '6'" class="mb-3">
+            <!-- <ion-badge style="position: absolute;
+            top: 10%;
+            left: 3%;
+            border-radius: 22px;
+            padding: 20px;
+            font-size: 16px;">+971</ion-badge> -->
+            <ion-input  maxlength="14" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="phone_number"></ion-input>
           </ion-col>
-          <ion-col size="6" class="mb-3" *ngIf="!otpSent">
+          <ion-col size="6" class="mb-3" *ngIf="!otpSent && !isOtpVerified">
             <ion-button (click)="sendOtp()" expand="block" >send otp</ion-button>
           </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="otpSent">
-            <ion-input type="tel" placeholder="verify otp"></ion-input>
+            <ion-input maxlength = '4' (ionChange)="verifyOtp($event)"
+             type="tel" placeholder="verify otp"></ion-input>
           </ion-col>
-         <span class="resendText" *ngIf="otpSent"> resend in 2 sec</span>
-          <ion-col size="6">
+         <span class="resendText" *ngIf="resendTimer"> Resend in {{timer}} sec</span>
+         <span (click)="sendAgain()"  class="resendLink" *ngIf="resend">Send Again</span>
+
+          <ion-col size="6" class="mt-3">
             <ion-button
              (click) = "changeView()" expand="block">Back</ion-button>
           </ion-col>
-          <ion-col size="6">
+          <ion-col size="6" class="mt-3">
             <ion-button
-             (click) = "submitSignup()" expand="block">Create Account</ion-button>
+             (click) = "submitSignup()" expand="block">Sign Up</ion-button>
           </ion-col>
         </ion-row>
       </form>

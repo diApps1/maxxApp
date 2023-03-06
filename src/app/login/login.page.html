@@ -28,10 +28,10 @@
           </ion-avatar>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="user name or email" formControlName="email"></ion-input>
+            <ion-input  placeholder="user name or email" formControlName="email"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="password" formControlName="password"></ion-input>
+            <ion-input maxlength="16" type="password" placeholder="password" formControlName="password"></ion-input>
           </ion-col>
           <ion-col size="12">
             <ion-button [disabled]="loginForm.invalid" (click)="submitLogin()" expand="block">Login</ion-button>
