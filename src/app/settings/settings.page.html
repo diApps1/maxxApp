@@ -2,57 +2,51 @@
   <ion-grid>
     <div class="services-wrapper">
       <ion-row>
-        <ion-col size="2">
-          <ion-icon  class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
+        <ion-col size="3">
+          <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="10" class="text-center">
-          <h5>Manage your App </h5>
+        <ion-col size="6" class="text-center">
+          <img class="img-fluid" src="assets/img/logo.png" alt="">
         </ion-col>
+        <ion-col size="3" class="text-right">
+          <ion-icon (click)="logOut()" class="icon-background dark-b" name="log-out-outline"></ion-icon>
+                </ion-col>
 
         <ion-col size="12">
-          <ion-card style="background: #F2B5BC;
+          <ion-card (click)="goToProfile()" style="background: #F2B5BC;
           background-image: url(./assets/img/female-avatar.png);
           background-size: cover;
           background-position: center;">
                     <ion-badge class="service-badge">
-                      <p>order history</p>
+                      <p>Edit Profile</p>
                     </ion-badge>
             <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
           </ion-card>
         </ion-col>
         <ion-col size="12">
-          <ion-card style="background: #F2B5BC;
+          <ion-card (click)="goToPendingOrders()" style="background: #F2B5BC;
           background-image: url(./assets/img/female-avatar.png);
           background-size: cover;
           background-position: center;">
                     <ion-badge class="service-badge">
-                      <p>order history</p>
+                      <p>Pending Orders</p>
                     </ion-badge>
             <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
           </ion-card>
         </ion-col>
         <ion-col size="12">
-          <ion-card style="background: #F2B5BC;
+          <ion-card (click)="goToCompletedOrders()" style="background: #F2B5BC;
           background-image: url(./assets/img/female-avatar.png);
           background-size: cover;
           background-position: center;">
                     <ion-badge class="service-badge">
-                      <p>order history</p>
+                      <p>Completed Orders</p>
                     </ion-badge>
             <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
           </ion-card>
         </ion-col>
-        <ion-col size="12">
-          <ion-card style="background: #F2B5BC;
-          background-image: url(./assets/img/female-avatar.png);
-          background-size: cover;
-          background-position: center;">
-                    <ion-badge class="service-badge">
-                      <p>order history</p>
-                    </ion-badge>
-            <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
-          </ion-card>
-        </ion-col>
+
+     
    
       
       

@@ -35,7 +35,11 @@ export class ServiceProvidersDetailPage implements OnInit {
   }
 
   bookMe() {
-    this.toaster.presentToast('You had booked adeel succesfully');
+    this.toaster.presentToast('coming soon' , 'warning');
+  }
+
+  uploadOptions() {
+    this.toaster.presentToast('coming soon' , 'warning');
   }
 
 }

@@ -100,6 +100,16 @@ ion-badge {
     padding: 12px;
     font-size: 8px;
 }
+ion-loading.custom-loading {
+  --background: #fff;
+  --spinner-color: #2D2B4E;
+
+  color: #2D2B4E;
+}
+.makeItLink {
+  text-decoration: underline;
+  color: blue;
+}
 .badge-group {
   display: flex;
   justify-content: space-between;
@@ -182,24 +192,44 @@ ion-tab-bar {
 }
 
 .upload-img-card {
-  padding: 12px;
+  padding: 8px;
   width: 100px;
   height: 100px;
   background-color: #fff;
-  border-radius: 22px;
+  border-radius: 18px;
   // background: url(./assets/img/plus-image.png);
   background-position: center;
   background-size: cover;
 }
 
 
-ion-toast.custom-toast {
-  // --background: green;
+ion-toast.success-toast {
+  --background: green;
   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-  // --color: #fff;
+  --color: #fff;
   // font-size: 12px;
   padding: 22px;
-  border-radius: 12px;  
+  --border-radius: 42px;  
+}
+// ion-toast.warning-toast {
+//   --background: #F9D942;
+//   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+//   --color: #2D2B4E;
+//   // font-size: 12px;
+//   padding: 22px;
+//   --border-radius: 42px;  
+// }
+ion-toast.danger-toast {
+  --background: red;
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: #fff;
+  // font-size: 12px;
+  padding: 22px;
+  margin-bottom: 65px !important;
+  --border-radius: 18px;  
+  margin-bottom: 22px;
+  // transform: translateY(-75px) !important;
+
 }
     
 // ion-toast.custom-toast::part(message) {

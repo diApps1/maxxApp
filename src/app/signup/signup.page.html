@@ -7,8 +7,8 @@
         <ion-col size="4">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="8" class="text-right mt-3">
-          <small>Need some help?</small>
+        <ion-col size="8" class="text-right">
+          <h6>Need some help?</h6>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -25,7 +25,7 @@
           </ion-col>
           <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
             <ion-avatar>
-            <img alt="Silhouette of a person's head" src="assets/img/female-avatar.png" />
+            <img alt="Silhouette of a person's head" src="https://img.freepik.com/free-photo/smiling-businessman-face-portrait-wearing-suit_53876-148138.jpg?w=740&t=st=1677851030~exp=1677851630~hmac=d025d4ec62efb91e0645d0b5ef42a34c22df7e99c05677960f3c08bb3bcced52" />
           </ion-avatar>
           </ion-col>
         </ion-row>
@@ -54,6 +54,8 @@
           
           <ion-col size="12" class="mb-3">
             <ion-input type="password" maxlength="16" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"></ion-input>
+            <ion-note style="font-size: 12px; margin-left: 13px;">
+              Please choose alphanumeric 16 words strong password </ion-note>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-input type="password" maxlength="16" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="confirm password"></ion-input>

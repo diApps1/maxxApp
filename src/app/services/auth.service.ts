@@ -13,6 +13,7 @@ export class AuthService {
 ) {
   this._headers = new HttpHeaders();
   this._headers = this._headers.append('Accept', 'application/json');
+  this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
  }
  createAccount(body:any) {
   let api = this.initial_url + 'register';
@@ -22,9 +23,19 @@ export class AuthService {
   let api = this.initial_url + 'login';
   return this.http.post(api , body , {headers : this._headers});
 }
-getProfileByID(token : any) {
-  let api = this.initial_url + 'profile';
-  return this.http.get(api , {headers : this._headers}  );
 
+logout() {
+  this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+  let api = this.initial_url + 'logout';
+  return this.http.post(api  , {} ,  {headers : this._headers});
 }
+
+
+getProfileByID(token : any) {
+  this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+  let api = this.initial_url + 'profile';
+  return this.http.get(api , {headers : this._headers} );
+}
+
+
 }

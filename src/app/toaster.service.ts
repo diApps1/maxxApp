@@ -13,7 +13,7 @@ export class ToasterService {
     const toast = await this.toastController.create({
       message: text,
       duration: 3000,
-      cssClass: 'custom-toast',
+      cssClass: colors == 'success' ? 'success-toast' : 'danger-toast',
       color : colors
       // buttons: [
       //   {

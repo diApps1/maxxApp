@@ -11,6 +11,8 @@ import { ModalController } from '@ionic/angular';
 export class ServiceProvidersPage implements OnInit {
   isUserLoggedIn: boolean = false;
 
+  imageUrl : any = 'https://backendtestingsetup.tech/public/';
+
   constructor(private router: Router ,
     private modalCtrl: ModalController,
      private location : Location) { }

@@ -4,8 +4,11 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="4">
+        <ion-col size="3">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
+        </ion-col>
+        <ion-col size="6" class="text-left">
+          <img class="img-fluid" src="assets/img/logo.png" alt="">
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -25,23 +28,24 @@
             </ion-avatar>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="First Name" ></ion-input>
+            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name" ></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="Last Name"></ion-input>
+            <ion-input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="Email" readonly></ion-input>
+            <ion-input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email" readonly></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-select interface="popover" placeholder="gender">
+            <ion-select [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" interface="popover" placeholder="gender">
               <ion-select-option value="male">Male</ion-select-option>
               <ion-select-option value="female">Female</ion-select-option>
             </ion-select>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input placeholder="Date of Birth"></ion-input>
+            <ion-input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" placeholder="phone number" readonly></ion-input>
           </ion-col>
+          
           <ion-col size="12">
             <ion-button  expand="block">Update</ion-button>
           </ion-col>
