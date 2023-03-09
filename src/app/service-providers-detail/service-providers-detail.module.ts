@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ServiceProvidersDetailPageRoutingModule } from './service-providers-detail-routing.module';
 
 import { ServiceProvidersDetailPage } from './service-providers-detail.page';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,8 @@ import { ServiceProvidersDetailPage } from './service-providers-detail.page';
     IonicModule,
     ServiceProvidersDetailPageRoutingModule
   ],
-  declarations: [ServiceProvidersDetailPage]
+  declarations: [ServiceProvidersDetailPage],
+  providers: [Camera]
+
 })
 export class ServiceProvidersDetailPageModule {}
