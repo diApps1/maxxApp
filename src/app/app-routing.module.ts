@@ -42,6 +42,14 @@ const routes: Routes = [
   {
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'sub-cetagory',
+    loadChildren: () => import('./sub-cetagory/sub-cetagory.module').then( m => m.SubCetagoryPageModule)
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then( m => m.ProductsPageModule)
   }
 ];
 @NgModule({
