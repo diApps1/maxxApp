@@ -42,7 +42,7 @@
         </ion-col>
         <ion-col size="2" class="text-center">
           <img type="file"
-           (click)="presentAction()" class="img-fluid" src="assets/img/image-outline.svg" alt="">
+           (click)="presentAction($event)" class="img-fluid" src="assets/img/image-outline.svg" alt="">
 
         </ion-col>
 
@@ -63,7 +63,15 @@
         </ion-col> -->
         <ion-col size="12" class="mb-3 text-left">
           <p>Choose Payment Method</p>
-        </ion-col>
+          <!-- <stripe-card #stripeCard
+          [(token)]     = "token"
+          (tokenChange) = "$event"
+        ></stripe-card>
+        <ion-button type="button" (click)="stripeCard.createPaymentMethod(extraData)">createPaymentMethod</ion-button>
+        <ion-button type="button" (click)="stripeCard.createSource(extraData)">createSource</ion-button>
+        <ion-button type="button" (click)="stripeCard.createToken()">createToken</ion-button> -->
+      
+      </ion-col>
         <ion-col size="12">
           <ion-button (click)="bookMe()" expand="block">Book Me</ion-button>
         </ion-col>

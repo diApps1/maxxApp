@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { EventProviderService } from '../services/event-provider.service';
 import { ToasterService } from '../toaster.service';
@@ -22,8 +22,10 @@ import { LoaderService } from '../services/loader.service';
 export class LandingPagePage implements OnInit {
   isUserLoggedIn: boolean = false;
   allProductsArray : any = [];
+  allCatArray : any = [];
   search : any;
   imageUrl : any = 'https://backendtestingsetup.tech/public/';
+  color : any = ['#F9D942' , '#F2B5BC' ]
 
 
   constructor(private router: Router,private location:Location,private loader: LoaderService,
@@ -43,7 +45,7 @@ export class LandingPagePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.getAllProducts();
+    this.getAllCetagories();
     this.search = '';
     if(localStorage.getItem('access_token')) {
       this.isUserLoggedIn = true;
@@ -59,27 +61,47 @@ export class LandingPagePage implements OnInit {
     }, 2000);
   };
 
-  getAllProducts() {
-    this.api_Service.getAllProducts().subscribe((res:any) => {
-        if(!res.success) {
-          this.allProductsArray = res;
-          console.log(this.allProductsArray)
-        } else {
-          this.toaster.presentToast(res.message , 'warning');
-        }
-    },(err:any) => {
-      this.toaster.presentToast(err.error.message , 'danger')
-    })
+  getAllCetagories() {
+    this.api_Service.getAllCetagories().subscribe((res:any) => {
+      if(res.success) {
+        this.allCatArray = res.categories;
+        console.log(this.allCatArray);
+        this.allCatArray.forEach((elem:any , index:any) => {
+          if(index%2 == 0) {
+            elem['color'] = '#F9D942'
+          } else {
+            elem['color'] = '#F2B5BC'
+          }
+        })
+      } else {
+        this.toaster.presentToast(res.message , 'warning');
+      }
+  },(err:any) => {
+    this.toaster.presentToast(err.error.message , 'danger');
+  })
   }
 
+  // getAllProducts() {
+  //   this.api_Service.getAllProducts().subscribe((res:any) => {
+  //       if(!res.success) {
+  //         this.allProductsArray = res;
+  //         console.log(this.allProductsArray)
+  //       } else {
+  //         this.toaster.presentToast(res.message , 'warning');
+  //       }
+  //   },(err:any) => {
+  //     this.toaster.presentToast(err.error.message , 'danger')
+  //   })
+  // }
+
   searchProduct(event:any) {
-    this.api_Service.getProductByName(event.target.value).subscribe((res:any) => {
-      console.log(res);
-      this.allProductsArray = [];
-      this.allProductsArray = res.products;
-    },(err:any) => {
-      this.getAllProducts();
-    })
+    // this.api_Service.getProductByName(event.target.value).subscribe((res:any) => {
+    //   console.log(res);
+    //   this.allProductsArray = [];
+    //   this.allProductsArray = res.products;
+    // },(err:any) => {
+    //   this.getAllCetagories();
+    // })
 
   }
 
@@ -92,6 +114,30 @@ export class LandingPagePage implements OnInit {
     
   }
 
+  goToNext(cat:any) {
+    this.loader.presentLoading().then(() => {
+      if(cat.sub_categories.length != 0) {
+        const options = {queryParams: {data: JSON.stringify(cat.sub_categories)}};
+        this.router.navigate(['sub-cetagory'] , options);
+      } else {
+        this.api_Service.getProductBycatId(cat.id).subscribe((res:any) => {
+            if(res.status){
+              const options = {queryParams: {data: JSON.stringify(res.products)}};
+              this.router.navigate(['products'] , options);
+              this.loader.stopLoading();
+            } else {
+              this.toaster.presentToast(res.message , 'warning');
+              this.loader.stopLoading();
+            }
+        },(err:any) => {
+          this.toaster.presentToast(err.error.message , 'danger');
+          this.loader.stopLoading();
+        })
+      }
+    })
+   
+    
+  }
   openServiceProviders(data?:any) {
     this.router.navigateByUrl('service-providers-detail');
   }

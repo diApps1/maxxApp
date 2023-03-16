@@ -11,7 +11,7 @@ import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
   styleUrls: ['./service-providers-detail.page.scss'],
 })
 export class ServiceProvidersDetailPage implements OnInit {
-
+  paymentHandler:any = null;
 
   profile_picture_file: any;
   profile_picture: any;
@@ -19,6 +19,8 @@ export class ServiceProvidersDetailPage implements OnInit {
 
   type: any = '';
 
+  token :any ;
+  extraData : any
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -46,6 +48,12 @@ export class ServiceProvidersDetailPage implements OnInit {
 
   ngOnInit() {}
 
+
+
+
+
+  
+
   makeTrue(index:any) {
     this.weekNameArray.forEach((element : any) => {
       element.active = false;
@@ -61,11 +69,16 @@ export class ServiceProvidersDetailPage implements OnInit {
     this.toaster.presentToast('coming soon' , 'warning');
   }
 
+
+
+
+ 
+
  
 
 
 
-  async presentAction() {
+  async presentAction(event:any) {
     // const actionSheet = await this.actionSheetController.create({
     //   header: 'Example header',
     //   subHeader: 'Example subheader',

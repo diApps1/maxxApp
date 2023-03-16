@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LandingPagePageRoutingModule } from './landing-page-routing.module';
 
 import { LandingPagePage } from './landing-page.page';
+import { FilterPipe } from '../pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { LandingPagePage } from './landing-page.page';
     IonicModule,
     LandingPagePageRoutingModule
   ],
-  declarations: [LandingPagePage]
+  declarations: [LandingPagePage , FilterPipe]
 })
 export class LandingPagePageModule {}

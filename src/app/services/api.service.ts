@@ -26,4 +26,14 @@ export class ApiService {
     return this.http.get(api , {headers : this._headers} );
   }
 
+  getAllCetagories() {
+    let api = this.initial_url + 'categories/all';
+    return this.http.get(api );
+  }
+  getProductBycatId(id:any) {
+    let api = this.initial_url + 'category-products/1';
+    return this.http.get(api);
+
+  }
+
 }
