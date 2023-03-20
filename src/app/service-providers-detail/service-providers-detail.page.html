@@ -17,7 +17,7 @@
   <div class="login-content-wrapper">
     <ion-grid class="login-content-outer">
       <ion-row>
-        <h1>250 AED...!</h1>
+        <h1>{{productData.price}} AED...!</h1>
         <ion-col size="12" class="text-left">
           <!-- <p class="day_buttons ">
             <ion-badge (click)="makeTrue(i)"
@@ -32,8 +32,7 @@
     <ion-datetime [preferWheel]="true" id="datetime"></ion-datetime>
   </ng-template>
 </ion-modal>
-          <small>we ensure you to done your job with full zeal and heast.
-            we are the best in our work.i am the best what  i can do.</small>
+          <small>{{productData.description}}</small>
         </ion-col>
 
 

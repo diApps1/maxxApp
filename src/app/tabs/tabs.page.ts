@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventProviderService } from '../services/event-provider.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor(private event_provider : EventProviderService) {}
+
+  ionViewWillEnter() {
+    this.event_provider.hideFooter(true);
+  }
+  ionViewDidLeave() {
+    this.event_provider.hideFooter(false);
+  }
 
 }

@@ -1,5 +1,5 @@
 ion-content {
-    --ion-background-color: #F9D942;
+    --ion-background-color: #ffe400;
     --padding-bottom: 0px;
     --padding-end: 0px;
     --padding-start: 0px;
@@ -33,16 +33,20 @@ ion-content {
 }
 
 .day_buttons .active {
-    background-color: #F9D942 !important;
+    background-color: #ffe400 !important;
     color: #2D2B4E;
     border: 0.5px solid #2D2B4E;
 }
 
 
 ion-datetime-button::part(native) {
-    background: #2D2B4E;
+    background: #212019;
     color: #fff;
 }
+
+
+
+
 
 
 

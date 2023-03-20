@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { ToasterService } from '../toaster.service';
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-service-providers-detail',
@@ -16,11 +17,11 @@ export class ServiceProvidersDetailPage implements OnInit {
   profile_picture_file: any;
   profile_picture: any;
   profile_picture_to_display: any;
-
   type: any = '';
-
   token :any ;
-  extraData : any
+  extraData : any;
+
+  productData : any;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -44,10 +45,21 @@ export class ServiceProvidersDetailPage implements OnInit {
     private dom : DomSanitizer,
     public actionSheetController: ActionSheetController,
 
-    private toastController: ToastController , private toaster : ToasterService) { }
+    private toastController: ToastController , private route:ActivatedRoute,
+     private toaster : ToasterService) {
+      this.route.queryParamMap.subscribe((params:any) => {
+        this.productData = JSON.parse(params.params.data);
+        // this.productsArray = JSON.parse(params.params.data);
+      console.log(this.productData)
+      })
+     }
 
   ngOnInit() {}
 
+
+  ionViewDidEnter() {
+    
+  }
 
 
 

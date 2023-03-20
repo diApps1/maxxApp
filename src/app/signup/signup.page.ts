@@ -66,8 +66,8 @@ export class SignupPage implements OnInit {
 
   submitSignup() {
     console.log(this.password , this.c_password , 'check')
-    if(this.password.toString().match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$') && 
-    this.c_password.toString().match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')){
+    if(this.password.toString().match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$') && 
+    this.c_password.toString().match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')){
       let  body = {
         first_name : this.firstName,
         last_name : this.lastName,

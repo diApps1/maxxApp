@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SubCetagoryPageRoutingModule } from './sub-cetagory-routing.module';
 
 import { SubCetagoryPage } from './sub-cetagory.page';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     SubCetagoryPageRoutingModule
   ],
   declarations: [SubCetagoryPage]

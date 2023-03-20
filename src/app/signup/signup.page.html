@@ -23,24 +23,23 @@
             <h1>Get Started!</h1>
             <p>Create you new account</p>
           </ion-col>
-          <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
-            <ion-avatar>
-            <img alt="Silhouette of a person's head" src="https://img.freepik.com/free-photo/smiling-businessman-face-portrait-wearing-suit_53876-148138.jpg?w=740&t=st=1677851030~exp=1677851630~hmac=d025d4ec62efb91e0645d0b5ef42a34c22df7e99c05677960f3c08bb3bcced52" />
-          </ion-avatar>
-          </ion-col>
+          <!-- <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
+            <img style="background-color: #ffe400;border-radius: 12px; padding: 12px;box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);"
+             class="img-fluid" width="120px" src="assets/img/logo.png" alt="">
+          </ion-col> -->
         </ion-row>
 
         <ion-row *ngIf="!nextPage">
           
           <ion-col size="12" class="mb-3">
-            <ion-input maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="first name"></ion-input>
+            <ion-input maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input maxlength="8" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="last name"></ion-input>
+            <ion-input maxlength="8" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-input
-             [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="email"></ion-input>
+             [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-button (click)="changeView()" expand="block" >Next</ion-button>
@@ -53,12 +52,12 @@
         <ion-row *ngIf="nextPage">
           
           <ion-col size="12" class="mb-3">
-            <ion-input type="password" maxlength="16" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"></ion-input>
+            <ion-input type="password" maxlength="16" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Password"></ion-input>
             <ion-note style="font-size: 12px; margin-left: 13px;">
-              Please choose alphanumeric 16 words strong password </ion-note>
+              Please choose alphanumeric 8 characters strong password </ion-note>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input type="password" maxlength="16" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="confirm password"></ion-input>
+            <ion-input type="password" maxlength="8" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password"></ion-input>
           </ion-col>
           <ion-col [size]="isOtpVerified ? '12' : '6'" class="mb-3">
             <!-- <ion-badge style="position: absolute;
@@ -67,10 +66,10 @@
             border-radius: 22px;
             padding: 20px;
             font-size: 16px;">+971</ion-badge> -->
-            <ion-input  maxlength="14" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="phone_number"></ion-input>
+            <ion-input  maxlength="14" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="Phone Number"></ion-input>
           </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="!otpSent && !isOtpVerified">
-            <ion-button (click)="sendOtp()" expand="block" >send otp</ion-button>
+            <ion-button (click)="sendOtp()" expand="block" >Send otp</ion-button>
           </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="otpSent">
             <ion-input maxlength = '4' (ionChange)="verifyOtp($event)"

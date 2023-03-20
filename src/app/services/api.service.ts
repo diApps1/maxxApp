@@ -31,7 +31,7 @@ export class ApiService {
     return this.http.get(api );
   }
   getProductBycatId(id:any) {
-    let api = this.initial_url + 'category-products/1';
+    let api = this.initial_url + 'category-products/' + id;
     return this.http.get(api);
 
   }

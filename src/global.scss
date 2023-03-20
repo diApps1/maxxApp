@@ -25,9 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@font-face {
+  font-family: "Raleway";
+  src: url('./assets/font/Raleway-VariableFont_wght.ttf');
+}
+$font-family-base: "Raleway";
+
 
 
 *{
+  font-family: $font-family-base;
     // font-family: 'Cedra 4F Wide';
     // font-family: 'Montserrat', sans-serif;
     // font-weight: 600;
@@ -54,15 +61,15 @@ h1 {
   margin-bottom: 10px;
 }
 ion-button {
-    --background:#2D2B4E;
-    --background-hover: #F9D942;
-    --background-activated: #F9D942;
-    --background-focused: #F9D942;
+    --background:#212019;
+    --background-hover: #ffe400;
+    --background-activated: #ffe400;
+    --background-focused: #ffe400;
     // font-size: 12px;
     --color: #fff;
     --border-radius: 12px;  
     --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-    --ripple-color: #F9D942;
+    --ripple-color: #ffe400;
     --padding-top: 25px;
     --padding-bottom: 25px;
     --padding-left : 20px;
@@ -77,7 +84,7 @@ ion-content {
   }
   ion-input {
     border-radius: 22px;
-    border: 1px solid #2D2B4E;
+    border: 1px solid #212019;
     --padding-start: 20px !important;
     --padding-end: 20px !important;
     --padding-top: 20px !important;
@@ -87,7 +94,7 @@ ion-content {
   }
   ion-select {
     border-radius: 22px;
-    border: 1px solid #2D2B4E;
+    border: 1px solid #212019;
     --padding-start: 20px !important;
     --padding-end: 20px !important;
     --padding-top: 20px !important;
@@ -96,15 +103,15 @@ ion-content {
     font-weight:500 !important;
   }
 ion-badge {
-    background: #2D2B4E;
+    background: #212019;
     padding: 12px;
     font-size: 8px;
 }
 ion-loading.custom-loading {
   --background: #fff;
-  --spinner-color: #2D2B4E;
+  --spinner-color: #212019;
 
-  color: #2D2B4E;
+  color: #212019;
 }
 .makeItLink {
   text-decoration: underline;
@@ -116,19 +123,19 @@ ion-loading.custom-loading {
 }
 .icon-background {
   font-size: 32px;
-  background: #F9D942;
-  // background: #2D2B4E;
+  background: #212019;
+  // background: #212019;
   padding: 8px;
   border-radius: 15px;
-  color: #2D2B4E;
+  color: #ffe400;
 }
 .icon-background.dark-b {
   font-size: 32px;
-  background: #2D2B4E;
-  // background: #2D2B4E;
+  background: #212019;
+  // background: #212019;
   padding: 8px;
   border-radius: 15px;
-  color: #F9D942;
+  color: #ffe400;
 }
   .service-badge {
     position: absolute;
@@ -151,9 +158,12 @@ ion-loading.custom-loading {
 }
 
 .header-wrapper {
+  background-color: #ffe400;
+  border-radius: 18px;
+  padding: 12px;
 }
 .search-wrapper {
-    background: #F9D942;
+    background: #ffe400;
     border-radius: 12px;
 }
 .search-wrapper ion-input {
@@ -163,7 +173,7 @@ ion-loading.custom-loading {
     margin-top: 11px;
     font-weight:normal;
     font-size: 12px;
-    color: #2D2B4E;
+    color: #212019;
     // --padding-start: 12px;
 }
 
@@ -176,6 +186,24 @@ ion-loading.custom-loading {
 
 ion-avatar {
     --border-radius: 15px;
+    background-color: #212019;
+    color: #ffe400;
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .avatar {
+    background-color: #212019;
+    color: #ffe400; 
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:15px;
+    width:50px;
+    height: 50px;
+    font-weight: 400;
+    font-size: 32px;
   }
 
 
@@ -202,6 +230,12 @@ ion-tab-bar {
   background-size: cover;
 }
 
+.no-data-box {
+  border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  }
+
 
 ion-toast.success-toast {
   --background: green;
@@ -209,12 +243,12 @@ ion-toast.success-toast {
   --color: #fff;
   // font-size: 12px;
   padding: 22px;
-  --border-radius: 42px;  
+  --border-radius: 18px;  
 }
 // ion-toast.warning-toast {
-//   --background: #F9D942;
+//   --background: #ffe400;
 //   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-//   --color: #2D2B4E;
+//   --color: #212019;
 //   // font-size: 12px;
 //   padding: 22px;
 //   --border-radius: 42px;  
@@ -238,7 +272,7 @@ ion-toast.danger-toast {
 
 
 // ion-datetime {
-//   --background: #2D2B4E;
+//   --background: #212019;
 //   // --background-rgb: 255, 241, 242;
 //   color: #fff;
 
@@ -252,8 +286,8 @@ ion-toast.danger-toast {
 // }
 
 // ion-datetime.picker-item {
-//   --background: #2D2B4E;
-//   color: #2D2B4E;
+//   --background: #212019;
+//   color: #212019;
 // }
 
 

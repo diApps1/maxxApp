@@ -8,16 +8,18 @@
   <ion-grid>
     <div class="header-wrapper">
       <ion-row>
-        <ion-col size="3">
-          <ion-avatar (click)="navigate()" >
-            <img alt="Silhouette of a person's head" src="https://img.freepik.com/free-photo/smiling-businessman-face-portrait-wearing-suit_53876-148138.jpg?w=740&t=st=1677851030~exp=1677851630~hmac=d025d4ec62efb91e0645d0b5ef42a34c22df7e99c05677960f3c08bb3bcced52" />
-          </ion-avatar>
+        <ion-col size="3" >
+            <ion-icon (click)="back()" class="icon-background" name="arrow-back-sharp"></ion-icon>
+          <!-- <div (click)="navigate()" class="avatar">
+            M
+          </div> -->
+       
         </ion-col>
         <ion-col size="6" class="text-center">
           <img class="img-fluid" src="assets/img/logo.png" alt="">
         </ion-col>
         <ion-col size="3" class="text-right">
-          <ion-icon (click)="goToSettings()" class="icon-background" name="settings"></ion-icon>
+          <ion-icon (click)="goToSettings()" class="icon-background" name="notifications"></ion-icon>
         </ion-col>
       </ion-row>
     </div>
@@ -25,7 +27,7 @@
   </ion-grid>
 
 
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col size="12" class="search-wrapper">
         <ion-row>
@@ -40,29 +42,35 @@
       </ion-col>
     
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
   <ion-grid>
     <div class="services-wrapper">
       <ion-row>
-        <ion-col size="2" class="text-left">
-          <ion-icon (click)="back()" class="icon-background" name="arrow-back-sharp"></ion-icon>
+        <ion-col size="12" class="text-center">
+          <h5>{{cetagoryName}}</h5>
         </ion-col>
-        <ion-col size="10" class="text-center">
-          <h5>Pick a service</h5>
-        </ion-col>
-        <ion-col size="12" class="text-center" *ngIf="productsArray.length == 0 ">
-            <ion-spinner name="crescent"></ion-spinner>
+        <ion-col size="12" class="text-center no-data-box mt-3" *ngIf="productsArray.length == 0 ">
+            <p>No products to display </p>
         </ion-col>
         
+        
         <ng-container *ngIf="productsArray.length != '0'">
-          <ion-col size="6"  *ngFor="let prod of productsArray;index as i">
-            <ion-card (click)="goToBooking(prod)"  style="background: #F9D942;
+          <ion-col size="12"  >
+            <ion-item (click)="goToBooking(prod)"
+             lines="none" *ngFor="let prod of productsArray | filter : search">
+              <!-- <ion-avatar slot="start">
+                <img alt="Silhouette of a person's head" src="https://backendtestingsetup.tech/public{{cat.image}}" />
+              </ion-avatar> -->
+              <ion-label>{{prod.name}}</ion-label>
+            </ion-item>
+            <!-- <ion-card (click)="goToBooking(prod)" [style.background-color]="prod.color"
+             style="
             background-image: url('https://backendtestingsetup.tech/public{{prod.file_path}}');
             background-size: cover;
             background-position: center;">
                       <ion-badge class="service-badge">{{prod.name}}</ion-badge>
-            </ion-card>
+            </ion-card> -->
           </ion-col>
         </ng-container>
        

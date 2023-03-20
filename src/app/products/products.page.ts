@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-products',
@@ -13,16 +14,21 @@ export class ProductsPage implements OnInit {
   isUserLoggedIn: boolean = false;
   search : any = '';
   productsArray : any = [];
+  cetagoryName : any;
 
 
 
-  constructor(private route : ActivatedRoute , private location : Location, private router : Router,private api_Service : ApiService) { 
+  constructor(private route : ActivatedRoute , private location : Location,private loader : LoaderService,
+     private router : Router,private api_Service : ApiService) { 
       this.route.queryParamMap.subscribe((params:any) => {
-        let tempArray = [];
-        tempArray = JSON.parse(params.params.data);
-        tempArray.forEach((elem:any , index:any) => {
-          if(index > 3) {
-            this.productsArray.push(elem);
+        this.productsArray = JSON.parse(params.params.data);
+        console.log(this.productsArray);
+        this.cetagoryName = this.productsArray[0].category.name ? this.productsArray[0].category.name : '';
+        this.productsArray.forEach((elem:any , index:any) => {
+          if(index%2 == 0) {
+            elem['color'] = '#F9D942'
+          } else {
+            elem['color'] = '#F2B5BC'
           }
         })
         // this.productsArray = JSON.parse(params.params.data);
@@ -59,7 +65,7 @@ export class ProductsPage implements OnInit {
   };
 
   goToSettings() {
-    this.router.navigateByUrl('settings')
+    this.router.navigateByUrl('notifications')
   }
 
   logOut() {
@@ -78,9 +84,11 @@ export class ProductsPage implements OnInit {
 }
 
 goToBooking(data:any) {
-  const options = {queryParams: {data: JSON.stringify(data)}};
-
-  this.router.navigate(['service-providers-detail'] , options)
+  this.loader.presentLoading().then(() => {
+    const options = {queryParams: {data: JSON.stringify(data)}};
+    this.router.navigate(['service-providers-detail'] , options);
+    this.loader.stopLoading();
+    })
 }
 
 }

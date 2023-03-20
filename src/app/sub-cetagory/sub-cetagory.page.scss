@@ -1,0 +1,19 @@
+// ion-item:nth-child(even) {
+//     padding: 12px;
+//     --border-radius: 18px;
+//   --ion-item-background: #212019;
+//   color: #ffe400;
+// }
+ion-item {
+    padding: 12px;
+    --border-radius: 18px;
+  --ion-item-background: #ffe400;
+  color: #212019;
+}
+ion-item ion-label {
+    padding: 12px;
+}
+
+ion-avatar {
+    background-color: #ffe400 !important;
+}

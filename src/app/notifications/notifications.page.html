@@ -1,0 +1,93 @@
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+    
+  </ion-refresher>
+
+  <ion-grid>
+    <div class="header-wrapper">
+      <ion-row>
+        <ion-col size="3" >
+            <ion-icon (click)="back()" class="icon-background" name="arrow-back-sharp"></ion-icon>
+          <!-- <div (click)="navigate()" class="avatar">
+            M
+          </div> -->
+       
+        </ion-col>
+        <ion-col size="6" class="text-center">
+          <img class="img-fluid" src="assets/img/logo.png" alt="">
+        </ion-col>
+        <ion-col size="3" class="text-right">
+          <ion-icon (click)="goToSettings()" class="icon-background" name="settings"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+   
+  </ion-grid>
+
+
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="search-wrapper">
+        <ion-row>
+          <ion-col size="3">
+            <img src="assets/img/lamp-icon.png">
+          </ion-col>
+          <ion-col size="9">
+            <ion-input [(ngModel)]="search" placeholder="search"></ion-input>
+          </ion-col>
+      
+        </ion-row>
+      </ion-col>
+    
+    </ion-row>
+  </ion-grid> -->
+
+
+  <ion-grid style="height: 100%;">
+    <div class="services-wrapper">
+      <ion-row>
+        <ion-col size="12"  class="text-center no-data-box mt-3">
+            <p>No Notifications Available </p>
+        </ion-col>      
+      </ion-row>
+    </div>
+   
+  </ion-grid>
+
+
+
+  <ion-grid>
+    <div class="services-wrapper">
+      <ion-row>
+        <!-- <ion-col size="12" class="text-center">
+          <h5>Pick a service</h5>
+        </ion-col> -->
+        
+        
+        <!-- <ng-container *ngIf="productsArray.length != '0'">
+          <ion-col size="6"  *ngFor="let prod of productsArray | filter : search">
+            <ion-card (click)="goToBooking(prod)" [style.background-color]="prod.color"
+             style="
+            background-image: url('https://backendtestingsetup.tech/public{{prod.file_path}}');
+            background-size: cover;
+            background-position: center;">
+                      <ion-badge class="service-badge">{{prod.name}}</ion-badge>
+            </ion-card>
+          </ion-col>
+        </ng-container> -->
+       
+        
+      </ion-row>
+    </div>
+   
+  </ion-grid>
+ 
+
+
+
+
+ 
+
+</ion-content>

@@ -2,7 +2,10 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+
 :root {
+
   /** primary **/
   --ion-color-rose-rgb: 131, 24, 67;
 
@@ -80,6 +83,7 @@
 
 
 body {
+  
   --ion-background-color: #FCFBFE;
       --ion-tab-bar-background: #F9D942;
 
@@ -146,6 +150,8 @@ body {
   --ion-color-light-shade: #1e2023;
   --ion-color-light-tint: #383a3e;
 }
+
+
 
 // @media (prefers-color-scheme: dark) {
 //   /*

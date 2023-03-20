@@ -22,16 +22,15 @@
             <h1>Welcome Back!</h1>
             <p>Login to your account</p>
           </ion-col>
-          <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
-            <ion-avatar >
-            <img alt="Silhouette of a person's head" src="https://img.freepik.com/free-photo/smiling-businessman-face-portrait-wearing-suit_53876-148138.jpg?w=740&t=st=1677851030~exp=1677851630~hmac=d025d4ec62efb91e0645d0b5ef42a34c22df7e99c05677960f3c08bb3bcced52" />
-          </ion-avatar>
+          <!-- <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
+            <img style="background-color: #ffe400;border-radius: 12px; padding: 12px;box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);"
+             class="img-fluid" width="120px" src="assets/img/logo.png" alt="">
+          </ion-col> -->
+          <ion-col size="12" class="mb-3">
+            <ion-input  placeholder="User Name or Email" formControlName="email"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input  placeholder="user name or email" formControlName="email"></ion-input>
-          </ion-col>
-          <ion-col size="12" class="mb-3">
-            <ion-input maxlength="16" type="password" placeholder="password" formControlName="password"></ion-input>
+            <ion-input maxlength="16" type="password" placeholder="Password" formControlName="password"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3 text-center">
             <small>Dont have an account? <span (click)="goToSignup()" class="makeItLink">Create one</span></small>

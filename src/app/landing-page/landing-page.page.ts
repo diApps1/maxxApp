@@ -119,6 +119,7 @@ export class LandingPagePage implements OnInit {
       if(cat.sub_categories.length != 0) {
         const options = {queryParams: {data: JSON.stringify(cat.sub_categories)}};
         this.router.navigate(['sub-cetagory'] , options);
+        this.loader.stopLoading();
       } else {
         this.api_Service.getProductBycatId(cat.id).subscribe((res:any) => {
             if(res.status){
@@ -143,7 +144,7 @@ export class LandingPagePage implements OnInit {
   }
 
   goToSettings() {
-    this.router.navigateByUrl('settings')
+    this.router.navigateByUrl('notifications')
   }
 
   logOut() {
