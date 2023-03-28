@@ -36,6 +36,12 @@ getProfileByID(token : any) {
   let api = this.initial_url + 'profile';
   return this.http.get(api , {headers : this._headers} );
 }
+updateProfile(body:any) {
+  this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+
+  let api = this.initial_url + 'profile-update';
+  return this.http.post(api , body , {headers : this._headers} );
+}
 
 
 }
