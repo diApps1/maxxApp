@@ -47,6 +47,14 @@ ion-item-sliding {
 }
 
 
+ion-textarea.custom-textarea {
+    border-radius: 18px;
+    box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    padding: 12px;
+    --placeholder-color: #212019;
+    --placeholder-opacity: 0.8;
+  }
+
 
 
 

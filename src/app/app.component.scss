@@ -29,4 +29,17 @@ ion-tab-bar {
       background-color: #212019;
     }
   }
+
+ion-fab {
+  margin-bottom: 40px;
+}
+
+  ion-fab-button {
+    --background: #212019;
+    --background-activated: #87d361;
+    --background-hover: #a3e681;
+    --border-radius: 15px;
+    --box-shadow: none !important;
+    --color: #ffe400;
+  }
   

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   
   {
-    path: 'landing-page',
+    path: 'landing-page', 
     loadChildren: () => import('./landing-page/landing-page.module').then( m => m.LandingPagePageModule)
   },
   {
@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
   }
 ];
 @NgModule({

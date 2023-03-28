@@ -5,15 +5,22 @@
 //   color: #ffe400;
 // }
 ion-item {
-    padding: 12px;
+    // background-color: #ffe400 !important;
+    padding: 22px;
     --border-radius: 18px;
   --ion-item-background: #ffe400;
   color: #212019;
 }
+
 ion-item ion-label {
     padding: 12px;
 }
 
 ion-avatar {
     background-color: #ffe400 !important;
+}
+
+.cetagory-wrapper .cetagory-inner ion-icon {
+    margin-top: 6px;
+    font-size: 65%;
 }

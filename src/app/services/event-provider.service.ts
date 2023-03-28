@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class EventProviderService {
   isUserLoggedin = new Subject<any>();
   hidefooter = new Subject<any>();
+  addcart = new Subject<any>();
 
   constructor() { }
 
@@ -16,5 +17,9 @@ export class EventProviderService {
 }
 hideFooter(data:boolean) {
   this.hidefooter.next(data);
+}
+addCart(data:any) {
+  this.addcart.next(data);
+  localStorage.setItem('cart' , JSON.stringify(data))
 }
 }

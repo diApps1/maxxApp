@@ -17,3 +17,16 @@ ion-item ion-label {
 ion-avatar {
     background-color: #ffe400 !important;
 }
+
+.ion-item {
+    background-color: #ffe400 !important;
+    padding: 22px;
+    border-radius: 18px;
+//   --ion-item-background: #ffe400;
+  color: #212019;
+}
+
+.cetagory-wrapper .cetagory-inner ion-icon {
+    margin-top: 6px;
+    font-size: 65%;
+}

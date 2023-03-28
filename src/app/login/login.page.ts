@@ -23,18 +23,19 @@ export class LoginPage implements OnInit {
 
       this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')]],
+        password: ['', [Validators.required, Validators.required]],
       });
    }
 
   ngOnInit() {
 
   }
+  
 
   ionViewDidEnter() {
     if(localStorage.getItem('access_token')) {
       this.loader_service.presentLoading('you are already login').then(() => {
-        this.router.navigateByUrl('landing-page');
+        this.router.navigateByUrl('profile');
         this.loader_service.stopLoading();
       })
     }

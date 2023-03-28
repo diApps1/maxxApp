@@ -15,44 +15,81 @@
   </div>
 
   <div class="login-content-wrapper">
-    <ion-grid class="login-content-outer">
+    <ion-grid class="login-content-outer" >
       <ion-row>
-        <h1>{{productData.price}} AED...!</h1>
-        <ion-col size="12" class="text-left">
-          <!-- <p class="day_buttons ">
-            <ion-badge (click)="makeTrue(i)"
-             *ngFor="let days of weekNameArray;index as i"
-            [ngClass]="{'active' : days.active}">
-             <p>{{days.dayName}}</p><p>17 June</p> </ion-badge>
-          </p> -->
-          <h6>When You Want Our Service?</h6>
-          <ion-datetime-button class="mb-5" presentation="date-time" datetime="datetime"></ion-datetime-button>
-<ion-modal [keepContentsMounted]="true">
-  <ng-template>
-    <ion-datetime [preferWheel]="true" id="datetime"></ion-datetime>
-  </ng-template>
-</ion-modal>
-          <small>{{productData.description}}</small>
+        <ion-col size="6" class="text-left mb-5"><h5>Items In Cart</h5></ion-col>
+        <ion-col (click)="emptyCart()" size="6" class="text-right mb-5"><p class="makeItUnderLine">Empty Cart </p>
         </ion-col>
+        <ion-col size="12"  class="text-center no-data-box mt-3" *ngIf="cartArray.length == 0">
+          <p>Your Cart Is Empty </p>
+      </ion-col> 
+  
 
+        <ion-item-sliding *ngFor="let item of cartArray;index as i" [@bounce]="state" >      
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="8" class=" text-left"><p>{{item.name}} <small>x {{item.quantity}}</small></p></ion-col>
+               
+                <ion-col size="4" class="text-right">
+                  <p>{{item.price}}.00 <small>AED</small></p>
+                  <!-- <ion-row>
+                    <ion-col size="4" 
+                     class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+                    <ion-col class="text-center " style="font-size: 22px;" size="4"><span >{{item.quantity}}</span></ion-col>
+                    <ion-col size="4" class="text-left"><ion-icon class="quantity-icons" name="add"></ion-icon></ion-col>
+                  </ion-row> -->
+              </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+      
+          <ion-item-options side="end">
+            <ion-item-option color="danger">
+              <ion-icon (click)="deleteFromCart(i)" slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
 
-        <ion-col size="10" class="text-left mt-1">
-          <h6>upload a picture of work</h6>
-        </ion-col>
-        <ion-col size="2" class="text-center">
-          <img type="file"
-           (click)="presentAction($event)" class="img-fluid" src="assets/img/image-outline.svg" alt="">
-
-        </ion-col>
-
-        <ion-col size="12" class="">
-          <ion-col size="12" class="mb-3">
-            <ion-select interface="popover" placeholder="Slect Specific Gender">
-              <ion-select-option value="male">Male</ion-select-option>
-              <ion-select-option value="female">Female</ion-select-option>
-            </ion-select>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" class="mt-5 text-left">
+              <p>Order Summary</p>
           </ion-col>
+          <ion-col size="6" class="text-left" *ngFor="let item of cartArray;index as i">
+            <small>{{item.name}} x {{item.quantity}}</small>
+          </ion-col>
+          <ion-col size="6" class="text-right" *ngFor="let item of cartArray;index as i">
+            <small>{{item.price * item.quantity}} AED</small>
+          </ion-col>
+       
+          <ion-col size="6" class="text-left">
+            <small>Discount</small>
+          </ion-col>
+          <ion-col size="6" class="text-right">
+            <small>0.00 AED</small>
+          </ion-col>
+          <ion-col size="6" class="text-left">
+            <small>Total Price</small>
+          </ion-col>
+          <ion-col size="6" class="text-right mb-5">
+            <small>1200.00 AED</small>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+
+   
+
+    
+
+
+        <ion-col size="12">
+          <ion-button (click)="bookMe()" expand="block">Check Out <ion-icon slot="end" name="cart"></ion-icon></ion-button>
         </ion-col>
+       
+       
+
+       
 
         
         <!-- <ion-col size="12" class=" text-center upload-img-card-outer">
@@ -60,20 +97,7 @@
             <img src="assets/img/image-outline.svg" alt="">
           </ion-card>
         </ion-col> -->
-        <ion-col size="12" class="mb-3 text-left">
-          <p>Choose Payment Method</p>
-          <!-- <stripe-card #stripeCard
-          [(token)]     = "token"
-          (tokenChange) = "$event"
-        ></stripe-card>
-        <ion-button type="button" (click)="stripeCard.createPaymentMethod(extraData)">createPaymentMethod</ion-button>
-        <ion-button type="button" (click)="stripeCard.createSource(extraData)">createSource</ion-button>
-        <ion-button type="button" (click)="stripeCard.createToken()">createToken</ion-button> -->
-      
-      </ion-col>
-        <ion-col size="12">
-          <ion-button (click)="bookMe()" expand="block">Book Me</ion-button>
-        </ion-col>
+       
       </ion-row>
     </ion-grid>
   </div>

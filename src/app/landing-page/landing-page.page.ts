@@ -66,11 +66,13 @@ export class LandingPagePage implements OnInit {
       if(res.success) {
         this.allCatArray = res.categories;
         console.log(this.allCatArray);
+        let tempArray = [];
         this.allCatArray.forEach((elem:any , index:any) => {
+
           if(index%2 == 0) {
-            elem['color'] = '#F9D942'
+            elem['color'] = '#ffe400'
           } else {
-            elem['color'] = '#F2B5BC'
+            elem['color'] = '#ffe400'
           }
         })
       } else {
@@ -115,27 +117,46 @@ export class LandingPagePage implements OnInit {
   }
 
   goToNext(cat:any) {
-    this.loader.presentLoading().then(() => {
-      if(cat.sub_categories.length != 0) {
-        const options = {queryParams: {data: JSON.stringify(cat.sub_categories)}};
-        this.router.navigate(['sub-cetagory'] , options);
-        this.loader.stopLoading();
-      } else {
-        this.api_Service.getProductBycatId(cat.id).subscribe((res:any) => {
-            if(res.status){
-              const options = {queryParams: {data: JSON.stringify(res.products)}};
-              this.router.navigate(['products'] , options);
-              this.loader.stopLoading();
-            } else {
-              this.toaster.presentToast(res.message , 'warning');
-              this.loader.stopLoading();
-            }
-        },(err:any) => {
-          this.toaster.presentToast(err.error.message , 'danger');
-          this.loader.stopLoading();
-        })
-      }
-    })
+    console.log(cat)
+    if(cat.subcategories.length != 0) {
+      const options = {queryParams: {data: JSON.stringify(cat.subcategories)}};
+      this.router.navigate(['sub-cetagory'] , options);
+  } else {
+    this.api_Service.getProductBycatId(cat.id).subscribe((res:any) => {
+              if(res.status){
+                const options = {queryParams: {data: JSON.stringify(res.products) , subCetagory : false}};
+                this.router.navigate(['sub-cetagory'] , options);
+                this.loader.stopLoading();
+              } else {
+                this.toaster.presentToast(res.message , 'warning');
+                this.loader.stopLoading();
+              }
+          },(err:any) => {
+            this.toaster.presentToast(err.error.message , 'danger');
+            this.loader.stopLoading();
+          })
+  }
+    // this.loader.presentLoading().then(() => {
+    //   if(cat.sub_categories.length != 0) {
+    //     const options = {queryParams: {data: JSON.stringify(cat.sub_categories)}};
+    //     this.router.navigate(['sub-cetagory'] , options);
+    //     this.loader.stopLoading();
+    //   } else {
+    //     this.api_Service.getProductBycatId(cat.id).subscribe((res:any) => {
+    //         if(res.status){
+    //           const options = {queryParams: {data: JSON.stringify(res.products)}};
+    //           this.router.navigate(['sub-cetagory'] , options);
+    //           this.loader.stopLoading();
+    //         } else {
+    //           this.toaster.presentToast(res.message , 'warning');
+    //           this.loader.stopLoading();
+    //         }
+    //     },(err:any) => {
+    //       this.toaster.presentToast(err.error.message , 'danger');
+    //       this.loader.stopLoading();
+    //     })
+    //   }
+    // })
    
     
   }

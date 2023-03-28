@@ -1,9 +1,16 @@
+@font-face {
+    font-family: "Raleway";
+    src: url('../../assets/font/Raleway-VariableFont_wght.ttf');
+  }
+  $font-family-base: "Raleway";
+
 ion-content {
     --ion-background-color: #ffe400;
     --padding-bottom: 0px;
     --padding-end: 0px;
     --padding-start: 0px;
     --padding-top: 0px;
+    font-family: $font-family-base !important;
 
 }
 
@@ -33,4 +40,8 @@ ion-content {
     text-decoration: underline;
     cursor: pointer;
     text-align: center;
+}
+
+.margin-agay {
+    margin-left: 20px;
 }

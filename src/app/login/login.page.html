@@ -36,7 +36,7 @@
             <small>Dont have an account? <span (click)="goToSignup()" class="makeItLink">Create one</span></small>
           </ion-col>
           <ion-col size="12">
-            <ion-button [disabled]="loginForm.invalid" (click)="submitLogin()" expand="block">Login</ion-button>
+            <ion-button [disabled]="loginForm.invalid" (click)="submitLogin()" expand="block">Login <ion-icon name="log-in"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </form>

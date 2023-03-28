@@ -1,0 +1,117 @@
+
+<ion-content>
+
+  <div class="login-header-wrapper">
+    <ion-grid>
+      <ion-row class="mt-5">
+        <ion-col size="3">
+          <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
+        </ion-col>
+        <ion-col size="6">
+        <img src="assets/img/logo.png" alt="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="login-content-wrapper">
+    <ion-grid class="login-content-outer">
+      <ion-row class="mb-3">
+        <ion-col size="12" class="text-center"><h3>Pay For booking</h3></ion-col>
+        <ion-col size="12" class="text-left"><p>Default Address</p></ion-col>
+       
+        <ion-col size="12">
+            <ion-textarea class="custom-textarea" placeholder="Address" [autoGrow]="true"
+              value="142-A Sheraz Villas Phase 3 Gulberg 3 Cantt Lahore">
+            </ion-textarea>
+        </ion-col>
+
+        <ion-col size="12" class="text-left"><p>Other Address (optional)</p></ion-col>
+       
+        <ion-col size="12">
+            <ion-textarea class="custom-textarea" placeholder="Enter Other Address(optional)" [autoGrow]="true"
+              value="">
+            </ion-textarea>
+        </ion-col>
+</ion-row>
+<ion-row> 
+          <ion-col size="12" class="text-left mb-3 mt-3">      
+          <ion-datetime-button 
+           class="mb-5" presentation="date-time" datetime="datetime"></ion-datetime-button>
+<ion-modal [keepContentsMounted]="true">
+    <ng-template>
+  
+      <ion-datetime color="danger"  id="datetime"></ion-datetime>
+    </ng-template>
+ 
+</ion-modal>
+
+
+        </ion-col> 
+
+        <ion-col size="12">
+          <ion-button expand="block">PayOut<ion-icon slot="end" name="card"></ion-icon></ion-button>
+        </ion-col>
+       
+        <!-- <ion-col size="12" class="text-center"><h5>Additional Hours</h5></ion-col>
+        <ion-col size="12" class="text-left">
+            <ion-row class="mt-1">
+              <ion-col size="4" class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+              <ion-col class="text-center mt-3" style="font-size: 22px;" size="4"><span >1</span></ion-col>
+              <ion-col size="4" class="text-left"><ion-icon class="quantity-icons" name="add"></ion-icon></ion-col>
+            </ion-row>
+        </ion-col> -->
+      
+        <!-- <ion-col size="12" class="text-left mb-3 mt-3">
+        
+          <h6>When You Want Our Service?</h6>
+      
+          <ion-datetime-button 
+           class="mb-5" presentation="date-time" datetime="datetime"></ion-datetime-button>
+<ion-modal [keepContentsMounted]="true">
+    <ng-template>
+  
+      <ion-datetime color="danger"  id="datetime"></ion-datetime>
+    </ng-template>
+ 
+</ion-modal>
+
+
+
+<ion-input type="text" placeholder="Address" ></ion-input>
+
+          <small>{{productData.description}}</small>
+        </ion-col> -->
+
+
+        <!-- <ion-col size="10" class="text-left mt-1">
+          <h6>upload a photo (optional)</h6>
+        </ion-col>
+        <ion-col size="2" class="text-center">
+          <ion-icon name="camera"></ion-icon>
+          <img type="file"
+           (click)="presentAction($event)" class="img-fluid" src="assets/img/cemra-icon.png" alt="">
+
+        </ion-col> -->
+
+        <!-- <ion-col size="12" class="">
+          <ion-col size="12" class="mb-3">
+            <ion-select interface="popover" placeholder="Slect Specific Gender">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-col> -->
+
+        
+        <!-- <ion-col size="12" class=" text-center upload-img-card-outer">
+          <ion-card class="upload-img-card">
+            <img src="assets/img/image-outline.svg" alt="">
+          </ion-card>
+        </ion-col> -->
+       
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

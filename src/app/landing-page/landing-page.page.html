@@ -5,17 +5,14 @@
     
   </ion-refresher>
 
+
+  
+
   <ion-grid>
     <div class="header-wrapper">
       <ion-row>
         <ion-col size="3" >
-          <!-- <span >A</span> -->
-          <!-- <div (click)="navigate()" class="avatar">
-            M
-          </div> -->
-          <ion-avatar (click)="navigate()" >
-            <ion-icon class="icon-background" name="person"></ion-icon>
-          </ion-avatar>
+            <ion-icon (click)="navigate()"  class="icon-background" name="person"></ion-icon>
         </ion-col>
         <ion-col size="6" class="text-center">
           <img class="img-fluid" src="assets/img/logo.png" alt="">
@@ -57,12 +54,12 @@
         </ion-col>
         
         <ng-container *ngIf="allCatArray.length != '0'">
-          <ion-col size="6"  *ngFor="let cat of allCatArray | filter : search">
+          <ion-col size="4"  *ngFor="let cat of allCatArray | filter : search">
             <ion-card (click)="goToNext(cat)" 
             [style.background-color]="cat.color" 
-            style="background-image: url('https://backendtestingsetup.tech/public{{cat.image}}');background-size: cover;background-position: center;">
-                      <ion-badge class="service-badge">{{cat.name}}</ion-badge>
+            style="background-image: url('https://backendtestingsetup.tech/public{{cat.image}}');background-size: cover;background-position: center;">                      
             </ion-card>
+            <p class="text-center cetagory-titles" >{{cat.name}}</p>
           </ion-col>
         </ng-container>
        

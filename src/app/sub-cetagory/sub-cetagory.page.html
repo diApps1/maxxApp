@@ -44,32 +44,236 @@
     </ion-row>
   </ion-grid> -->
 
-  <ion-grid>
+  <ng-container *ngIf="isSubCetagory == 'true'">
+    <ion-grid *ngFor="let sub_cat of subCatArray;index as i">
+      <div class="services-wrapper">
+        <ion-row>
+        
+          <ion-col size="12" class="text-center">
+            <h6>{{sub_cat.name}}</h6>
+          </ion-col>
+          <ion-col size="12" class="text-center" *ngIf="subCatArray.length == 0 ">
+              <ion-spinner name="crescent"></ion-spinner>
+          </ion-col>
+          
+          <ng-container *ngIf="subCatArray.length != '0'">
+            <div class="cetagory-wrapper">
+              <ion-col size="12" class="text-center">
+                <div class="ion-item" >
+                </div>
+                <ion-grid *ngFor="let products of sub_cat.products;index as ind">
+                  <ion-row>
+                    <ion-col size="7" class="mt-3 text-left">{{products.name}}</ion-col>
+                    <ion-col size="5" class="text-left">
+                      <ion-row>
+                        <ion-col size="4" (click)="removeFromCart(products)"
+                         class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+                        <ion-col class="text-center " style="font-size: 22px;" size="4">
+                          <span >{{products.quantity == 0 ? '-' : products.quantity}}</span></ion-col>
+                        <ion-col size="4" (click)="addtoCart(products)"
+                         class="text-left"><ion-icon  class="quantity-icons" name="add"></ion-icon></ion-col>
+                      </ion-row>
+                  </ion-col>
+                  </ion-row>
+                </ion-grid>
+             
+              </ion-col>
+           
+             
+            <ion-grid class="cetagory-inner">  
+              <ion-row>
+                <ion-col size="12" class="text-left">
+                  <h5>What is Included</h5>
+                </ion-col>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+              </ion-row>
+            </ion-grid>
+           
+         
+    
+    
+    
+            <ion-grid class="cetagory-inner">
+              <ion-row>
+                <ion-col size="12" class="text-left">
+                  <h5>Reminders</h5>
+                </ion-col>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="1" class="text-left">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col size="11" class="text-left">
+                    <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                  </ion-col>
+                </ion-row>
+              </ion-row>
+            </ion-grid>
+            </div>
+          </ng-container>
+         
+          
+        </ion-row>
+      </div>
+     
+    </ion-grid>
+  </ng-container>
+
+
+
+<ng-container *ngIf="isSubCetagory == 'false'">
+  <ion-grid >
     <div class="services-wrapper">
       <ion-row>
       
         <ion-col size="12" class="text-center">
-          <h5>sub-cetagories</h5>
+          <h6>{{mainCetagoryTitle}}</h6>
         </ion-col>
         <ion-col size="12" class="text-center" *ngIf="subCatArray.length == 0 ">
             <ion-spinner name="crescent"></ion-spinner>
         </ion-col>
         
         <ng-container *ngIf="subCatArray.length != '0'">
-          <ion-col size="12">
-            <ion-item (click)="goToProduct(cat.id)"
-             lines="none" *ngFor="let cat of subCatArray">
-              <!-- <ion-avatar slot="start">
-                <img alt="Silhouette of a person's head" src="https://backendtestingsetup.tech/public{{cat.image}}" />
-              </ion-avatar> -->
-              <ion-label>{{cat.name}}</ion-label>
-            </ion-item>
-            <!-- <ion-card (click)="goToProduct(cat.id)"  
-            [style.background-color]="cat.color" 
-            style="background-image: url('https://backendtestingsetup.tech/public{{cat.image}}');background-size: cover;background-position: center;">
-                      <ion-badge class="service-badge">{{cat.name}}</ion-badge>
-            </ion-card> -->
-          </ion-col>
+          <div class="cetagory-wrapper">
+            <ion-col size="12" class="text-center">
+              <!-- <ion-item (click)="goToProduct(cat.id)"
+               lines="none" *ngFor="let cat of subCatArray"> -->
+              <div class="ion-item" >
+                <!-- <ion-avatar slot="start">
+                  <img alt="Silhouette of a person's head" src="https://backendtestingsetup.tech/public{{cat.image}}" />
+                </ion-avatar> -->
+                <!-- <ion-label>{{cat.name}}</ion-label> -->
+              </div>
+              <!-- <ion-card (click)="goToProduct(cat.id)"  
+              [style.background-color]="cat.color" 
+              style="background-image: url('https://backendtestingsetup.tech/public{{cat.image}}');background-size: cover;background-position: center;">
+                        <ion-badge class="service-badge">{{cat.name}}</ion-badge>
+              </ion-card> -->
+              <ion-grid *ngFor="let products of subCatArray;index as i">
+                <ion-row>
+                  <ion-col size="7" class="mt-3 text-left">{{products.name}}</ion-col>
+                  <ion-col size="5" class="text-left">
+                    <ion-row>
+                      <ion-col size="4" (click)="removeFromCart(products)"
+                       class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+                      <ion-col class="text-center " style="font-size: 22px;" size="4">
+                        <span >{{products.quantity == 0 ? '-' : products.quantity}}</span></ion-col>
+                      <ion-col size="4" (click)="addtoCart(products)"
+                       class="text-left"><ion-icon  class="quantity-icons" name="add"></ion-icon></ion-col>
+                    </ion-row>
+                </ion-col>
+                </ion-row>
+              </ion-grid>
+           
+            </ion-col>
+         
+           
+          <ion-grid class="cetagory-inner">  
+            <ion-row>
+              <ion-col size="12" class="text-left">
+                <h5>What is Included</h5>
+              </ion-col>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+            </ion-row>
+          </ion-grid>
+         
+       
+  
+  
+  
+          <ion-grid class="cetagory-inner">
+            <ion-row>
+              <ion-col size="12" class="text-left">
+                <h5>Reminders</h5>
+              </ion-col>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1" class="text-left">
+                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                </ion-col>
+                <ion-col size="11" class="text-left">
+                  <small>Cleaning of filters,vents and water tray with the water pressure machine.</small>
+                </ion-col>
+              </ion-row>
+            </ion-row>
+          </ion-grid>
+          </div>
         </ng-container>
        
         
@@ -77,6 +281,8 @@
     </div>
    
   </ion-grid>
+</ng-container>
+ 
  
 
 
