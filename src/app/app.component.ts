@@ -64,12 +64,12 @@ cartArray : any =[];
   constructor(private event_provider : EventProviderService,private router : Router ) {
 
     window.addEventListener('keyboardWillShow', () => {
-      console.log("yes")
       this.isKeyBoardOpen = true; 
+      this.state = '';
     });    
     window.addEventListener('keyboardWillHide', () => {
-      console.log("no")
       this.isKeyBoardOpen = false;
+      this.state = '';
     });
 
     this.event_provider.hidefooter.subscribe((res:boolean) => {
@@ -77,17 +77,17 @@ cartArray : any =[];
       console.log(this.isHideFooter)
     });
     this.event_provider.addcart.subscribe((res:any) => {
-      if(localStorage.getItem('cart')?.length != 0) {
-        this.cartEmpty = false;
-      } else {
-        this.cartEmpty = true;
-      }
       this.cartArray = res;
       if(this.state == 'inactive') {
         this.state = '';
       }
     this.state = this.state ? 'inactive' : 'active';
     console.log(this.state)
+      if(localStorage.getItem('cart')?.length != 0) {
+        this.cartEmpty = false;
+      } else {
+        this.cartEmpty = true;
+      }
       // this.state = '';
     })
 

@@ -4,6 +4,7 @@ import { ToasterService } from '../toaster.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-signup',
@@ -35,19 +36,8 @@ export class SignupPage implements OnInit {
     {active : false},
   ]
   constructor(private location : Location, private auth_service : AuthService,
-     private toast : ToasterService,private router : Router) { 
-    // this.signUpForm = new FormGroup({
-    //   firstName : new  FormControl('' , Validators.required),
-    //   lastName : new  FormControl('' , Validators.required),
-    //   email : new  FormControl('' , Validators.required),
-    //   password : new  FormControl('' , Validators.required),
-    //   c_password : new  FormControl('' , Validators.required),
-    //   phoneNumber : new  FormControl('' , Validators.required),
-    //   otp : new  FormControl(''),
+     private toast : ToasterService,private router : Router , private loader_service : LoaderService) { 
 
-
-
-    // });
    }
 
   ngOnInit() {
@@ -99,26 +89,32 @@ export class SignupPage implements OnInit {
             phone : this.phoneNumber,
             address : address
           }
-      this.auth_service.createAccount(body).subscribe((res:any) => {
-        console.log(res)
-        if(res.success) {
-          this.router.navigateByUrl('login');
-          this.toast.presentToast(res.message , 'success');
-          this.firstName = '';
-          this.lastName  = '';
-          this.email  = '';
-          this.password = '';
-          this.c_password = '';
-          this.phoneNumber = '';
-          this.otp = 'any';
-        } else {
-          this.toast.presentToast(res.message , 'warning');
-        }
-      },(err:any) => {
-        this.toast.presentToast(err.message , 'danger');
-      })
+          this.loader_service.presentLoading().then(() => {
+            this.auth_service.createAccount(body).subscribe((res:any) => {
+              if(res.success) {
+                this.router.navigateByUrl('login');
+                this.toast.presentToast(res.message , 'success');
+                this.firstName = '';
+                this.lastName  = '';
+                this.email  = '';
+                this.password = '';
+                this.c_password = '';
+                this.phoneNumber = '';
+                this.otp = 'any';
+                this.loader_service.stopLoading();
+              } else {
+                this.toast.presentToast(res.message , 'warning');
+                this.loader_service.stopLoading();
+              }
+            },(err:any) => {
+              this.toast.presentToast(err.message , 'danger');
+              this.loader_service.stopLoading();
+            })
+          })
+      
     } else {
       this.toast.presentToast('Password does not match' , 'warning');
+      this.loader_service.stopLoading();
     }
     // if(this.password.toString().match('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$.') && 
     // this.c_password.toString().match('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$.')){

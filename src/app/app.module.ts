@@ -9,7 +9,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+// import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 
@@ -22,7 +22,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
      IonicModule.forRoot(),
       AppRoutingModule,
       ReactiveFormsModule,FormsModule],
-  providers: [LocalNotifications , Keyboard ,  { provide: RouteReuseStrategy, 
+  providers: [ Keyboard ,  { provide: RouteReuseStrategy, 
      useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -23,6 +23,7 @@ export class ProfilePage implements OnInit {
   phone : any;
   address : any;
   userId : any;
+  isUserLoggedIn : boolean = false;
 
   profile_picture_file: any;
   profile_picture: any;
@@ -231,10 +232,30 @@ getCameraOptions(sourceType : any) {
     console.log(event.target.files[0])
   }
 
+  logOut () {
+    this.loader.presentLoading().then(()  => {
+      this.auth_service.logout().subscribe((res:any) => {
+        if(res.success) {
+          localStorage.clear();
+          this.isUserLoggedIn = false;
+          this.toaster.presentToast('Log out succesfully' , 'success');
+          this.router.navigateByUrl('landing-page');
+          this.loader.stopLoading();
+        } else {
+          this.toaster.presentToast('Sorry You cant Logout' , 'warning');
+          this.loader.stopLoading();
+        }
+      } , (err:any) => {
+        this.toaster.presentToast('You are Not Logged In' , 'danger');
+        this.loader.stopLoading();
+      })
+    })
+  }
+
   updateProfile() {
     this.loader.presentLoading().then(() => {
       const formData = new FormData();
-      // formData.append('user_photo' , '')
+      formData.append('user_photo' , this.profile_picture)
       formData.append('id' , this.userId)
       formData.append('first_name' , this.firstName)
       formData.append('last_name' , this.lastName)

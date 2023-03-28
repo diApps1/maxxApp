@@ -5,7 +5,7 @@ import { ActionSheetController, ToastController } from '@ionic/angular';
 import { ToasterService } from '../toaster.service';
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+// import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { EventProviderService } from '../services/event-provider.service';
 import {
   trigger,
@@ -91,7 +91,7 @@ export class ServiceProvidersDetailPage implements OnInit {
     {dayName : 'SUN' , active : false},
 ];
   constructor(private location : Location,private camera: Camera,
-    private dom : DomSanitizer,private localNotifications: LocalNotifications,
+    private dom : DomSanitizer,
     public actionSheetController: ActionSheetController,
 
     private toastController: ToastController , private route:ActivatedRoute,
@@ -120,13 +120,13 @@ export class ServiceProvidersDetailPage implements OnInit {
 
     this.cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : '';
     console.log(this.cartArray)
-     setTimeout(() => {
-      this.localNotifications.schedule({
-        title: 'My first notification',
-        text: 'Thats pretty easy...',
-        foreground: true
-      });
-    }, 2000);
+    //  setTimeout(() => {
+    //   this.localNotifications.schedule({
+    //     title: 'My first notification',
+    //     text: 'Thats pretty easy...',
+    //     foreground: true
+    //   });
+    // }, 2000);
     
   }
 
