@@ -2,24 +2,22 @@
 
 <ion-router-outlet>  </ion-router-outlet>
 
-  <ion-tabs >
+  <ion-tabs>
     <ion-tab-bar mode="ios" slot="bottom" *ngIf="!isHideFooter">
-      <ion-tab-button tab="landing-page" layout="icon-top">
-        <ion-icon name="home"></ion-icon>
+      <ion-tab-button tab="landing-page">
+        <img class="img-fluid" src="assets/img/Home.png" >
         <ion-label>Home</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button>
-        <img src="assets/img/shopping-cart.png" *ngIf="cartEmpty">
+      <ion-tab-button [@bounce]="state">
+        <img class="img-fluid" src="assets/img/Cart.png" >
+        <ion-label>Cart</ion-label>
       </ion-tab-button>
-      <!-- <ion-tab-button tab="history" layout="icon-top">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Booking</ion-label>
-      </ion-tab-button> -->
+    
 
   
       <ion-tab-button (click)="navigate()" layout="icon-top">
-        <ion-icon name="person"></ion-icon>
+        <img class="img-fluid" src="assets/img/Profile.png" >
         <ion-label>Profile</ion-label>
       </ion-tab-button>
    
