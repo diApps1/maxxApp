@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { LoaderService } from '../services/loader.service';
 import { ToasterService } from '../toaster.service';
-import { register } from 'swiper/element/bundle';
 import { EventProviderService } from '../services/event-provider.service';
 import {
   trigger,
@@ -15,7 +14,6 @@ import {
   keyframes,
   transition,
 } from '@angular/animations'
-register();
 
 @Component({
   selector: 'app-sub-cetagory',

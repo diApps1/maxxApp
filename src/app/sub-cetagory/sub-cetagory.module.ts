@@ -8,7 +8,7 @@ import { SubCetagoryPageRoutingModule } from './sub-cetagory-routing.module';
 
 import { SubCetagoryPage } from './sub-cetagory.page';
 import { SharedModule } from '../shared/shared.module';
-import Swiper from 'swiper';
+// import Swiper from 'swiper';
 
 @NgModule({
   imports: [

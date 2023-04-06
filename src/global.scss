@@ -119,12 +119,12 @@ ion-button {
     --padding-right : 20px
   }
 
-ion-content {
-    --padding-bottom: 10px;
-    --padding-end: 20px;
-    --padding-start: 20px;
-    --padding-top: 20px;
-  }
+// ion-content {
+//     --padding-bottom: 10px;
+//     --padding-end: 20px;
+//     --padding-start: 20px;
+//     --padding-top: 20px;
+//   }
   ion-input {
     border-radius: 22px;
     border: 1px solid #212019;
@@ -202,7 +202,7 @@ ion-loading.custom-loading {
 
 .header-wrapper {
   background-color: #ffe400;
-  border-radius: 18px;
+  border-radius: 0px;
   padding: 12px;
 }
 .search-wrapper {

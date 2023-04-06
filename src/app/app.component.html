@@ -9,7 +9,9 @@
         <ion-label>Home</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button></ion-tab-button>
+      <ion-tab-button>
+        <img src="assets/img/shopping-cart.png" *ngIf="cartEmpty">
+      </ion-tab-button>
       <!-- <ion-tab-button tab="history" layout="icon-top">
         <ion-icon name="calendar"></ion-icon>
         <ion-label>Booking</ion-label>
@@ -28,14 +30,13 @@
 
   </ion-tabs>
 
-  <ng-container *ngIf="!isKeyBoardOpen">
+  <!-- <ng-container *ngIf="!isKeyBoardOpen">
     <ion-fab [@bounce]="state" vertical="bottom" horizontal="center" slot="fixed" *ngIf="!isHideFooter">
       <ion-fab-button (click) = "setState()">
         <img src="assets/img/shopping-cart.png" *ngIf="cartEmpty">
         <img  src="assets/img/shopping-cart-full.png" *ngIf="!cartEmpty">
       </ion-fab-button>
-      <!-- <ion-icon  name="radio-button-on"></ion-icon> -->
     </ion-fab>
-  </ng-container>
+  </ng-container> -->
  
 </ion-app>
