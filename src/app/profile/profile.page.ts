@@ -31,6 +31,10 @@ export class ProfilePage implements OnInit {
   type: any = '';
   token :any ;
   extraData : any;
+  userData : any;
+
+  updateSpinner : boolean = false;
+  error : boolean = false;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -60,26 +64,24 @@ export class ProfilePage implements OnInit {
   }
 
 getProfile() {
-    this.loader.presentLoading().then(() => {
       this.auth_service.getProfileByID(localStorage.getItem('access_token')).subscribe((res:any) => {
         console.log(res);
         if(res.success) {
+          this.userData = res.data;
           this.firstName = res.data.first_name;
           this.lastName = res.data.last_name;
           this.email = res.data.email;
           this.phone = res.data.phone;
           this.address = res.data.address;
           this.userId = res.data.id;
-          this.loader.stopLoading();
         } else {
           this.toaster.presentToast(res.message , 'warning');
-          this.loader.stopLoading();
         }
       },(err:any) => {
-        this.toaster.presentToast(err.error.message , 'danger');
-        this.loader.stopLoading();
+        this.router.navigateByUrl('login');
+        localStorage.clear();
+        this.toaster.presentToast('Something went wrong Login Again' , 'danger');
       })
-    })
   }
 
 
@@ -214,12 +216,25 @@ getCameraOptions(sourceType : any) {
 }
    
 
+goToChangePassword() {
+  const options = {queryParams: {data: JSON.stringify(this.userData)}};
+  this.router.navigate(['change-password'] , options);
+
+
+}
 
 
 
 
+makeErrorTrue(from?:any) {
+  
+  this.error = true;
+  setTimeout(() => {
+    this.error = false;
+  }, 1000);
 
 
+}
 
 
 
@@ -253,7 +268,7 @@ getCameraOptions(sourceType : any) {
   }
 
   updateProfile() {
-    this.loader.presentLoading().then(() => {
+    this.updateSpinner = true;
       const formData = new FormData();
       formData.append('user_photo' , this.profile_picture)
       formData.append('id' , this.userId)
@@ -277,18 +292,20 @@ getCameraOptions(sourceType : any) {
       console.log(body)
       this.auth_service.updateProfile(formData).subscribe((res:any) => {
         if(res) {
+          this.updateSpinner = false;
       this.toaster.presentToast('Profile Updated Succesfully' , 'success');
       this.getProfile();
-      this.loader.stopLoading();
     } else {
+      this.updateSpinner = false;
+      this.makeErrorTrue();
       this.toaster.presentToast(res.message , 'warning');
-      this.loader.stopLoading();
         }
       } , (err:any) => {
+        this.updateSpinner = false;
+        this.makeErrorTrue();
+
         this.toaster.presentToast('Some thing went wrong' , 'danger');
-        this.loader.stopLoading();
       })
-    })
     
   }
 

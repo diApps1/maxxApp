@@ -56,7 +56,6 @@
         <ng-container *ngIf="allCatArray.length != '0'">
           <ion-col size="4"  *ngFor="let cat of allCatArray | filter : search">
             <ion-card (click)="goToNext(cat)" 
-            [style.background-color]="cat.color" 
             style="background-image: url('https://backendtestingsetup.tech/public{{cat.image}}');background-size: cover;background-position: center;">                      
             </ion-card>
             <p class="text-center cetagory-titles" >{{cat.name}}</p>

@@ -61,6 +61,30 @@ h6 {
 .mb-3 {
   margin-bottom: 10px;
 }
+.horizontal-shake {
+  animation: horizontal-shaking 0.35s infinite;
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+}
+
+.button-icon {
+  margin-left: 20px;
+    font-size: 14px;
+}
+.button-icon-back {
+  margin-right: 20px;
+    font-size: 14px;
+}
+.input-icon {
+  margin-left: 20px;
+  font-size: 26px;
+}
 
 .quantity {
   display: flex;
@@ -199,6 +223,7 @@ ion-loading.custom-loading {
 .services-wrapper ion-card {
     min-height: 80px;
    border-radius: 18px;
+   box-shadow: none;
     // background: #F56C61;
 }
 
@@ -257,31 +282,35 @@ ion-tab-bar {
 
 
 ion-toast.success-toast {
-  --background: green;
   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
   --color: #fff;
   // font-size: 12px;
-  padding: 22px;
-  --border-radius: 18px;  
+  // padding: 22px;
+  // --border-radius: 18px;  
 }
-// ion-toast.warning-toast {
-//   --background: #ffe400;
-//   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-//   --color: #212019;
-//   // font-size: 12px;
-//   padding: 22px;
-//   --border-radius: 42px;  
-// }
+ion-toast.warning-toast {
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: #fff;
+  // font-size: 12px;
+}
 ion-toast.danger-toast {
-  --background: red;
   --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
   --color: #fff;
   // font-size: 12px;
   padding: 22px;
-  margin-bottom: 65px !important;
-  --border-radius: 18px;  
-  margin-bottom: 22px;
+  // margin-bottom: 65px !important;
+  // --border-radius: 18px;  
+  // margin-bottom: 22px;
   // transform: translateY(-75px) !important;
+
+}
+
+ion-toast {
+  transform: translateY(65px) !important;
+  width: 200px;
+  left: 40vw;
+  --border-radius: 14px !important;  
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
 
 }
     

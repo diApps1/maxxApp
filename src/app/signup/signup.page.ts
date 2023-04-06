@@ -10,6 +10,7 @@ import { LoaderService } from '../services/loader.service';
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
+  
 })
 export class SignupPage implements OnInit {
   // signUpForm : any;
@@ -30,6 +31,12 @@ export class SignupPage implements OnInit {
   resend : boolean = false;
   resendTimer : boolean = false;
   isOtpVerified : boolean = false;
+  error : boolean = false;
+
+  otpSpinner : boolean = false;
+  signupSpinner : boolean = false;
+  otpError : boolean = false;
+
   page : any =[
     {active : false},
     {active : false},
@@ -67,16 +74,42 @@ export class SignupPage implements OnInit {
           this.page[1].active= true;
         }
       } else {
+        this.makeErrorTrue();
         this.toast.presentToast('email is badly formatted' , 'warning')
       }
 
     } else {
+      this.makeErrorTrue();
       this.toast.presentToast('missing requried fields' , 'warning')
 
     }
   }
+makeErrorTrue(from?:any) {
+  if(from == 'otp') {
+    this.otpError = true;
+    setTimeout(() => {
+      this.otpError = false;
+    }, 1000);
+  } else {
+    this.error = true;
+    setTimeout(() => {
+      this.error = false;
+    }, 1000);
+  }
+ 
 
+}
+  sendCode(platform? : any) {
+    if(platform == 'email') {
+      this.toast.presentToast('code sent to your email' , 'success')
+    } else if (platform == 'mobile') {
+      this.auth_service.sendOtp(this.phoneNumber).subscribe((res:any) => {
+        console.log(res)
+      })
+    }
+  }
   submitSignup() {
+    this.signupSpinner = true;
     let address = this.street + ' ' + this.city + ' ' + this.state + ' ' +  'united arab emirates';
     console.log(address)
     if(this.password == this.c_password) {
@@ -89,9 +122,9 @@ export class SignupPage implements OnInit {
             phone : this.phoneNumber,
             address : address
           }
-          this.loader_service.presentLoading().then(() => {
             this.auth_service.createAccount(body).subscribe((res:any) => {
               if(res.success) {
+                this.signupSpinner = false;
                 this.router.navigateByUrl('login');
                 this.toast.presentToast(res.message , 'success');
                 this.firstName = '';
@@ -101,18 +134,19 @@ export class SignupPage implements OnInit {
                 this.c_password = '';
                 this.phoneNumber = '';
                 this.otp = 'any';
-                this.loader_service.stopLoading();
               } else {
+                this.signupSpinner = false;
+                this.makeErrorTrue();
                 this.toast.presentToast(res.message , 'warning');
-                this.loader_service.stopLoading();
               }
             },(err:any) => {
+              this.signupSpinner = false;
+              this.makeErrorTrue();
               this.toast.presentToast(err.message , 'danger');
-              this.loader_service.stopLoading();
             })
-          })
       
     } else {
+      this.makeErrorTrue();
       this.toast.presentToast('Password does not match' , 'warning');
       this.loader_service.stopLoading();
     }
@@ -156,20 +190,64 @@ export class SignupPage implements OnInit {
   }
 
   sendOtp() {
-    this.otpSent = true;
-    this.resendTimer = true;
-    this.countTime();
-  }
-  stopCounter : boolean = false;
-  verifyOtp(event:any) {
-    console.log(event)
-    if(event.target.value == '1234') {
-      this.stopCounter = true;
-      this.resendTimer = false;
-      this.otpSent = false;
-      this.isOtpVerified = true;
-      this.toast.presentToast('otp verified succesfully' , 'success');
+    this.otpSpinner = true;
+    this.phoneNumber = this.phoneNumber ? '+971' + this.phoneNumber : '';
+    let body = {
+      phone : this.phoneNumber
     }
+    this.auth_service.sendOtp(body).subscribe((res:any) => {
+      if(res.success) {
+        this.otpSpinner = false;
+        this.otpSent = true;
+        this.resendTimer = true;
+        this.countTime();
+        } else {
+          this.otpSpinner = false;
+          this.makeErrorTrue('otp');
+          this.toast.presentToast('Phone number is not valid' , 'warning');  
+        }
+  
+    } , (err:any) => {
+      this.otpSpinner = false;
+      this.makeErrorTrue('otp');
+      this.toast.presentToast('something went wrong' , 'danger');  
+})
+  }
+
+
+  stopCounter : boolean = false;
+
+
+
+  verifyOtp(event:any) {
+    if(event.target.value.length == 6) {
+      this.otpSpinner = true;
+      let body = {
+        phone : this.phoneNumber,
+        code : event.target.value
+      }
+      this.auth_service.verifyOtp(body).subscribe((res:any) => {
+        if(res.success) {
+          this.otpSpinner = false;
+          this.stopCounter = true;
+          this.resendTimer = false;
+          this.otpSent = false;
+          this.isOtpVerified = true;
+          this.resend = false;
+          this.toast.presentToast('otp verified succesfully' , 'success');  
+        } else {
+          this.otpSpinner = false;
+          this.makeErrorTrue();
+          this.toast.presentToast('Invalid code' , 'warning');  
+        }
+      } , (err:any) => {
+        this.otpSpinner = false;
+        this.makeErrorTrue();
+        this.toast.presentToast('something went wrong' , 'danger');  
+    })
+    }
+  
+   
   }
 
   countTime() {

@@ -61,6 +61,7 @@ cartArray : any =[];
   isHideFooter : boolean = false;
   isKeyBoardOpen : boolean = false;
   cartEmpty : boolean = true;
+  isUserLoggedIn : boolean = false;
   constructor(private event_provider : EventProviderService,private router : Router ) {
 
     window.addEventListener('keyboardWillShow', () => {
@@ -71,6 +72,10 @@ cartArray : any =[];
       this.isKeyBoardOpen = false;
       this.state = '';
     });
+
+    this.event_provider.isUserLoggedin.subscribe((res:boolean) => {
+      this.isUserLoggedIn = res;
+    })
 
     this.event_provider.hidefooter.subscribe((res:boolean) => {
       this.isHideFooter = res;
@@ -96,7 +101,7 @@ cartArray : any =[];
  
 
   ngOnInit(): void {
-    if(localStorage.getItem('cart')?.length != 0) {
+    if(localStorage.getItem('cart')) {
       this.cartEmpty = false;
     } else {
       this.cartEmpty = true;
@@ -108,6 +113,12 @@ cartArray : any =[];
   }
 
 
-
+  navigate() {
+    if(localStorage.getItem('access_token')) {
+      this.router.navigateByUrl('profile')
+    } else {
+      this.router.navigateByUrl('login')
+    }
+  }
 
 }

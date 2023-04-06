@@ -15,6 +15,8 @@ import { ToasterService } from '../toaster.service';
 export class LoginPage implements OnInit {
   loginForm : any;
 
+  loginSpinner : boolean = false;
+  error : boolean = false;
 
   constructor(private location : Location, private fb : FormBuilder, private loader_service : LoaderService,
      private router : Router,private event_provider : EventProviderService,
@@ -50,23 +52,24 @@ export class LoginPage implements OnInit {
   }
 
   submitLogin() {
-    this.loader_service.presentLoading().then(() => {
+    this.loginSpinner = true;
       this.auth_service.loginAccount(this.loginForm.value).subscribe((res:any) => {
         console.log(res)
         if(res.success) { 
+          this.loginSpinner = false;
           this.event_provider.isuserloggedin(true);
           this.toast.presentToast(res.message , 'success');
           localStorage.setItem('access_token' , res.access_token);
           this.router.navigateByUrl('landing-page');
-          this.loader_service.stopLoading();
         } else {
-          this.toast.presentToast(res.message , 'warning');
-          this.loader_service.stopLoading();
+          this.loginSpinner = false;
+          this.makeErrorTrue();
+          this.toast.presentToast('Email or Password is incorrect' , 'warning');
         }
       },(err:any) => {
-        this.loader_service.stopLoading();
-        this.toast.presentToast(err.error.message , 'danger');
-      })
+        this.loginSpinner = false;
+        this.makeErrorTrue();
+        this.toast.presentToast('Unable to find user with these credentials at a moment , Try again Later' , 'danger');
     })
     
   }
@@ -75,6 +78,14 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl('signup')
   }
 
+  makeErrorTrue(from?:any) {
   
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 1000);
+   
+  
+  }
 
  }

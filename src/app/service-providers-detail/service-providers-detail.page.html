@@ -14,7 +14,7 @@
     </ion-grid>
   </div>
 
-  <div class="login-content-wrapper">
+  <div class="login-content-wrapper" *ngIf="!createbooking">
     <ion-grid class="login-content-outer" >
       <ion-row>
         <ion-col size="6" class="text-left mb-5"><h5>Items In Cart</h5></ion-col>
@@ -32,7 +32,7 @@
                 <ion-col size="8" class=" text-left"><p>{{item.name}} <small>x {{item.quantity}}</small></p></ion-col>
                
                 <ion-col size="4" class="text-right">
-                  <p>{{item.price}}.00 <small>AED</small></p>
+                  <p>{{item.price * item.quantity}}.00 <small>AED</small></p>
                   <!-- <ion-row>
                     <ion-col size="4" 
                      class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
@@ -51,41 +51,51 @@
           </ion-item-options>
         </ion-item-sliding>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col size="12" class="mt-5 text-left">
-              <p>Order Summary</p>
-          </ion-col>
-          <ion-col size="6" class="text-left" *ngFor="let item of cartArray;index as i">
-            <small>{{item.name}} x {{item.quantity}}</small>
-          </ion-col>
-          <ion-col size="6" class="text-right" *ngFor="let item of cartArray;index as i">
-            <small>{{item.price * item.quantity}} AED</small>
-          </ion-col>
-       
-          <ion-col size="6" class="text-left">
-            <small>Discount</small>
-          </ion-col>
-          <ion-col size="6" class="text-right">
-            <small>0.00 AED</small>
-          </ion-col>
-          <ion-col size="6" class="text-left">
-            <small>Total Price</small>
-          </ion-col>
-          <ion-col size="6" class="text-right mb-5">
-            <small>1200.00 AED</small>
-          </ion-col>
-          </ion-row>
-        </ion-grid>
+        
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="text-left">
+          <p>Order Summary</p>
+      </ion-col> 
+      </ion-row>
+
+      <ion-row *ngFor="let item of cartArray;index as i">
+        <ion-col size="6" class="text-left" >
+          <small>{{item.name}} x {{item.quantity}}</small>
+        </ion-col>
+        <ion-col size="6" class="text-right" >
+          <small>{{item.price * item.quantity}} AED</small>
+        </ion-col>
+        
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6" class="text-left">
+          <small>Discount</small>
+        </ion-col>
+        <ion-col size="6" class="text-right">
+          <small>0.00 AED</small>
+        </ion-col>
+        <ion-col size="6" class="text-left">
+          <small>Total Price</small>
+        </ion-col>
+        <ion-col size="6" class="text-right mb-5">
+          <small>{{totalPrice}}.00 AED</small>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
 
    
 
     
 
+    <ion-col size="12" *ngIf="!createbooking">
+      <ion-button (click)="createBooking()"
+       expand="block">Create Booking <ion-icon slot="end" name="cart"></ion-icon></ion-button>
+    </ion-col>
 
-        <ion-col size="12">
-          <ion-button (click)="bookMe()" expand="block">Check Out <ion-icon slot="end" name="cart"></ion-icon></ion-button>
-        </ion-col>
+
        
        
 
@@ -99,6 +109,138 @@
         </ion-col> -->
        
       </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <div class="login-content-wrapper" *ngIf="createbooking">
+    <ion-grid class="login-content-outer">
+      <ion-row class="mb-3">
+        <ion-col size="12" class="text-center">
+          <h3>Create booking</h3>
+        </ion-col>
+        <ion-col size="12" class="text-left">
+          <p>Default Address</p>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-textarea [(ngModel)]="address"
+           class="custom-textarea" placeholder="Address" [autoGrow]="true"
+            value="142-A Sheraz Villas Phase 3 Gulberg 3 Cantt Lahore">
+          </ion-textarea>
+        </ion-col>
+
+        <ion-col size="12" class="text-left">
+          <p>Other Address (optional)</p>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-textarea [(ngModel)]="other_address"
+           class="custom-textarea" placeholder="Enter Other Address(optional)" [autoGrow]="true" value="">
+          </ion-textarea>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col size="6" class="mt-3">
+          <p>Select a Date and Time</p>
+        </ion-col>
+        <ion-col size="6" class="text-left mb-3 mt-3">
+          <ion-datetime-button class="mb-5" 
+           presentation="date-time" datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+
+              <ion-datetime (ionChange)="date($event)" color="danger" id="datetime"></ion-datetime>
+            </ng-template>
+
+          </ion-modal>
+
+
+        </ion-col>
+
+        <ion-col size="12" *ngIf="createbooking">
+          <ion-button (click)="bookMe()" [ngClass]="{'horizontal-shake': error}"
+           expand="block">Check Out
+           <ion-spinner *ngIf="checkoutSpinner"
+              class="button-icon" name="crescent"></ion-spinner>
+            <ion-icon *ngIf="!checkoutSpinner" slot="end" name="cart"></ion-icon></ion-button>
+        </ion-col>
+
+        <!-- <ion-col size="12">
+          <ion-select [(ngModel)]="paymentMethod" [ngModelOptions]="{standalone: true}"
+           interface="popover" placeholder="Choose Payment Method">
+            <ion-select-option value="applePay">Pay with Apple Pay</ion-select-option>
+            <ion-select-option value="card">Pay with Debit/Credit Card</ion-select-option>
+          </ion-select>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-button expand="block">PayOut<ion-icon slot="end" name="card"></ion-icon></ion-button>
+        </ion-col> -->
+
+        <!-- <ion-col size="12" class="text-center"><h5>Additional Hours</h5></ion-col>
+        <ion-col size="12" class="text-left">
+            <ion-row class="mt-1">
+              <ion-col size="4" class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+              <ion-col class="text-center mt-3" style="font-size: 22px;" size="4"><span >1</span></ion-col>
+              <ion-col size="4" class="text-left"><ion-icon class="quantity-icons" name="add"></ion-icon></ion-col>
+            </ion-row>
+        </ion-col> -->
+
+        <!-- <ion-col size="12" class="text-left mb-3 mt-3">
+        
+          <h6>When You Want Our Service?</h6>
+      
+          <ion-datetime-button 
+           class="mb-5" presentation="date-time" datetime="datetime"></ion-datetime-button>
+<ion-modal [keepContentsMounted]="true">
+    <ng-template>
+  
+      <ion-datetime color="danger"  id="datetime"></ion-datetime>
+    </ng-template>
+ 
+</ion-modal>
+
+
+
+<ion-input type="text" placeholder="Address" ></ion-input>
+
+          <small>{{productData.description}}</small>
+        </ion-col> -->
+
+
+        <!-- <ion-col size="10" class="text-left mt-1">
+          <h6>upload a photo (optional)</h6>
+        </ion-col>
+        <ion-col size="2" class="text-center">
+          <ion-icon name="camera"></ion-icon>
+          <img type="file"
+           (click)="presentAction($event)" class="img-fluid" src="assets/img/cemra-icon.png" alt="">
+
+        </ion-col> -->
+
+        <!-- <ion-col size="12" class="">
+          <ion-col size="12" class="mb-3">
+            <ion-select interface="popover" placeholder="Slect Specific Gender">
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-col> -->
+
+
+        <!-- <ion-col size="12" class=" text-center upload-img-card-outer">
+          <ion-card class="upload-img-card">
+            <img src="assets/img/image-outline.svg" alt="">
+          </ion-card>
+        </ion-col> -->
+
+      </ion-row>
+
+
+
     </ion-grid>
   </div>
 

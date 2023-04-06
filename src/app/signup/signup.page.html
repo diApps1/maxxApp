@@ -4,12 +4,15 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="4">
+        <ion-col size="3" >
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="8" class="text-right">
+        <ion-col size="6">
+          <img src="assets/img/logo.png" alt="">
+          </ion-col>
+        <!-- <ion-col size="8" class="text-right">
           <h6>Need some help?</h6>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -32,17 +35,34 @@
         <ion-row *ngIf="page[0].active">
           
           <ion-col size="12" class="mb-3">
-            <ion-input maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name"></ion-input>
+            
+            <ion-input 
+             maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
+             placeholder="First Name">
+             <ion-icon class="input-icon" name="person-outline"></ion-icon>
+            </ion-input>
+             
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input maxlength="8" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name"></ion-input>
+            <ion-input maxlength="8"
+             [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"
+              placeholder="Last Name">
+              <ion-icon class="input-icon" name="person-outline"></ion-icon>
+            </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-input
-             [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email"></ion-input>
+             [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+              placeholder="Email">
+              <ion-icon class="input-icon" name="mail-outline"></ion-icon></ion-input>
+             <!-- <ion-label style="position: absolute;
+             top: 24px;
+             right: 18px;
+             font-weight: 500"><small>send otp</small></ion-label> -->
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-button (click)="changeView('0')" expand="block" >Next<ion-icon name="arrow-forward"></ion-icon></ion-button>
+            <ion-button [ngClass]="{'horizontal-shake': error}" (click)="changeView('0')" expand="block" >Next
+              <ion-icon class="button-icon" name="arrow-forward"></ion-icon></ion-button>
           </ion-col>
   
          
@@ -51,21 +71,28 @@
         <ion-row *ngIf="page[1].active">
           
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="street" [ngModelOptions]="{standalone: true}" placeholder="Street"></ion-input>
+            <ion-input [(ngModel)]="street"
+             [ngModelOptions]="{standalone: true}" placeholder="Street">
+             <ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="city" [ngModelOptions]="{standalone: true}" placeholder="City"></ion-input>
+            <ion-input [(ngModel)]="city" [ngModelOptions]="{standalone: true}" placeholder="City">
+              <ion-icon class="input-icon" name="location-outline"></ion-icon>
+            </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
             <ion-input
-             [(ngModel)]="state" [ngModelOptions]="{standalone: true}" placeholder="State"></ion-input>
+             [(ngModel)]="state" [ngModelOptions]="{standalone: true}" placeholder="State">
+             <ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
           </ion-col>
           <ion-col size="6" class="mb-3">
             <ion-button
-             (click) = "changeView('1' , 'back')" expand="block"><ion-icon name="arrow-back-outline"></ion-icon>Back </ion-button>
+             (click) = "changeView('1' , 'back')" expand="block">
+             <ion-icon class="button-icon-back" name="arrow-back-outline"></ion-icon>Back </ion-button>
           </ion-col>
           <ion-col size="6" class="mb-3">
-            <ion-button (click)="changeView('1')" expand="block" >Next <ion-icon name="arrow-forward"></ion-icon></ion-button>
+            <ion-button (click)="changeView('1')" expand="block" >Next 
+              <ion-icon class="button-icon" name="arrow-forward"></ion-icon></ion-button>
           </ion-col>
   
          
@@ -80,32 +107,51 @@
               Please choose alphanumeric 8 characters strong password </ion-note>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input type="password" maxlength="8" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password"></ion-input>
+            <ion-input  type="password" maxlength="8" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password"></ion-input>
           </ion-col>
           <ion-col [size]="isOtpVerified ? '12' : '6'" class="mb-3">
           
-              <!-- <ion-label style="position: absolute;
-              top: 24px;
-              left: 10px">+971</ion-label> -->
-              <ion-input   maxlength="14" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder=""></ion-input>
-          </ion-col>
+            <ion-label style="position: absolute;
+            top: 24px;
+            left: 14px"><small>+971</small></ion-label>
+              <ion-input style="padding-left: 20px !important;"
+              maxlength="14"
+               [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="">
+              </ion-input>
+               <!-- <ion-label (click)="sendCode('mobile')" style="position: absolute;
+             top: 24px;
+             right: 14px"><small>send otp</small></ion-label> -->
+          
+            </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="!otpSent && !isOtpVerified">
-            <ion-button (click)="sendOtp()" expand="block" >Send otp</ion-button>
+            <ion-button [ngClass]="{'horizontal-shake': otpError}"
+             (click)="sendOtp()" expand="block" >Send otp
+             <ion-spinner *ngIf="otpSpinner"
+              class="button-icon" name="crescent"></ion-spinner></ion-button>
           </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="otpSent">
-            <ion-input maxlength = '4' (ionChange)="verifyOtp($event)"
-             type="tel" placeholder="verify otp"></ion-input>
+            <ion-input [ngClass]="{'horizontal-shake': otpError}"
+             maxlength = '6' (ionChange)="verifyOtp($event)"
+             type="tel" placeholder="verify otp">
+             <ion-spinner *ngIf="otpSpinner"
+             class="button-icon" name="crescent"></ion-spinner>
+            </ion-input>
           </ion-col>
          <span class="resendText" *ngIf="resendTimer"> Resend in {{timer}} sec</span>
          <span (click)="sendAgain()"  class="resendLink" *ngIf="resend">Send Again</span>
 
           <ion-col size="6" class="mt-3">
             <ion-button
-             (click) = "changeView('2')" expand="block"><ion-icon name="arrow-back-outline"></ion-icon>Back</ion-button>
+             (click) = "changeView('2')" expand="block">
+             <ion-icon class="button-icon-back" name="arrow-back-outline"></ion-icon>Back</ion-button>
           </ion-col>
           <ion-col size="6" class="mt-3">
-            <ion-button
-             (click) = "submitSignup()" expand="block">Sign Up <ion-icon name="person-add"></ion-icon></ion-button>
+            <ion-button  [ngClass]="{'horizontal-shake': error}"
+             (click) = "submitSignup()" expand="block">Sign Up
+             <ion-spinner *ngIf="signupSpinner"
+              class="button-icon" name="crescent"></ion-spinner>
+              <ion-icon *ngIf="!signupSpinner"
+               class="button-icon" name="person-add"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
 

@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 // import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [AppComponent],

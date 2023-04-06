@@ -36,4 +36,15 @@ export class ApiService {
 
   }
 
+  createBooking(body:any) {
+    this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    let api = this.initial_url + 'booking/save';
+    return this.http.post(api , body , {headers : this._headers} );
+  }
+  createPayment(body:any) {
+    this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    let api = this.initial_url + 'transaction/save';
+    return this.http.post(api , body , {headers : this._headers} );
+  }
+
 }

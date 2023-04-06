@@ -20,24 +20,42 @@
   <div class="login-content-wrapper">
     <ion-grid class="login-content-outer">
       <form>
-        <ion-row>
+
+       
+
+
+        <ion-row >
           <ion-col size="12" >
             <h1>Update Profile!</h1>
-            <p>Edit Your Information</p>
+            <!-- <p (click)="goToChangePassword()">Change Password?</p> -->
           </ion-col>
+
+        
+            <ion-col size="12" class="text-center" *ngIf="!userData">
+              <ion-spinner name="crescent"></ion-spinner>
+          </ion-col>
+      
+
+        <ng-container *ngIf="userData">
           <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
             <!-- <input type="file" (change)="check($event)"> -->
             <ion-icon type="file"
             (click)="presentAction($event)" class="icon-background" name="person"></ion-icon>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name" ></ion-input>
+            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
+             placeholder="First Name">
+             <ion-icon class="input-icon" name="person-outline"></ion-icon></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name"></ion-input>
+            <ion-input [(ngModel)]="lastName"
+             [ngModelOptions]="{standalone: true}"
+              placeholder="Last Name"><ion-icon class="input-icon" name="person-outline"></ion-icon></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email" readonly></ion-input>
+            <ion-input [(ngModel)]="email"
+             [ngModelOptions]="{standalone: true}"
+              placeholder="Email" readonly><ion-icon class="input-icon" name="mail-outline"></ion-icon></ion-input>
           </ion-col>
           <!-- <ion-col size="12" class="mb-3">
             <ion-select [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" interface="popover" placeholder="gender">
@@ -46,16 +64,27 @@
             </ion-select>
           </ion-col> -->
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" placeholder="phone number" readonly></ion-input>
+            <ion-input [(ngModel)]="phone"
+             [ngModelOptions]="{standalone: true}"
+              placeholder="phone number" readonly><ion-icon class="input-icon" name="call-outline"></ion-icon></ion-input>
           </ion-col>
 
           <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="address" [ngModelOptions]="{standalone: true}" placeholder="Address"></ion-input>
+            <ion-input [(ngModel)]="address"
+             [ngModelOptions]="{standalone: true}"
+              placeholder="Address"><ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
           </ion-col>
           
           <ion-col size="12">
-            <ion-button (click)="updateProfile()"  expand="block">Update</ion-button>
+            <ion-button [ngClass]="{'horizontal-shake': error}"
+              (click)="updateProfile()"  expand="block">Update
+              <ion-icon *ngIf="!updateSpinner"  name="person-circle-outline"></ion-icon>
+              <ion-spinner *ngIf="updateSpinner"
+              class="button-icon" name="crescent"></ion-spinner>
+            </ion-button>
           </ion-col>
+        </ng-container>
+        
         </ion-row>
       </form>
       

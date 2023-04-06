@@ -29,6 +29,7 @@ export class SubCetagoryPage implements OnInit {
   mainCetagoryTitle : any;
   cartArray : any = [];
   isSubCetagory = '';
+  
 
   constructor(private route : ActivatedRoute ,private event_provider : EventProviderService,
      private toaster : ToasterService, private location : Location,
@@ -37,8 +38,8 @@ export class SubCetagoryPage implements OnInit {
 
 
     this.route.queryParamMap.subscribe((params:any) => {
-      console.log(params.params.subCetagory)
       if(params.params.subCetagory == 'true') {
+        this.subCatArray = [];
         this.isSubCetagory = params.params.subCetagory;
         this.subCatArray = JSON.parse(params.params.data);
       this.subCatArray.forEach((elem:any , index:any) => {
@@ -79,14 +80,30 @@ export class SubCetagoryPage implements OnInit {
   }
 
   getAllSubCetagory() {
-    if(localStorage.getItem('cart')) {
-      this.cartArray = JSON.parse(localStorage.getItem('cart') as string);
-      this.cartArray.forEach((elem:any , i:any) => {
-        const index = this.subCatArray.findIndex((x:any , i:any) => x.id == elem.id);
-        this.subCatArray[index] = elem;
-      })
-
+    console.log(this.isSubCetagory)
+    if(this.isSubCetagory == 'false') {
+      if(localStorage.getItem('cart')) {
+        this.cartArray = JSON.parse(localStorage.getItem('cart') as string);
+        this.cartArray.forEach((elem:any , i:any) => {
+          const index = this.subCatArray.findIndex((x:any , i:any) => x.id == elem.id);
+          this.subCatArray[index] = elem;
+        })
+  
+      }
+    } else {
+      if(localStorage.getItem('cart')) {
+        this.cartArray = JSON.parse(localStorage.getItem('cart') as string);
+        this.subCatArray.forEach((element:any ,ind:any) => {
+          this.cartArray.forEach((elem:any , i:any) => {
+            const index = this.subCatArray[ind].products.findIndex((x:any , i:any) => x.id == elem.id);
+            this.subCatArray[ind].products[index] = elem;
+          })
+        })
+       
+  
+      }
     }
+   
   }
 
   handleRefresh(event:any) {
@@ -109,6 +126,7 @@ export class SubCetagoryPage implements OnInit {
     }
   }
   addtoCart(product:any) {
+    console.log(product)
       product['quantity'] = product.quantity + 1;
       console.log(this.subCatArray)
       if(this.cartArray.length == 0) {

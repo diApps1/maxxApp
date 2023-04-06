@@ -4,7 +4,7 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="4">
+        <ion-col size="4" class="mt-5">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
         <ion-col size="8" class="text-right">
@@ -27,16 +27,26 @@
              class="img-fluid" width="120px" src="assets/img/logo.png" alt="">
           </ion-col> -->
           <ion-col size="12" class="mb-3">
-            <ion-input  placeholder="User Name or Email" formControlName="email"></ion-input>
+            <ion-input  placeholder="User Name or Email" formControlName="email">
+              <ion-icon class="input-icon" name="mail-outline"></ion-icon>
+            </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-input maxlength="16" type="password" placeholder="Password" formControlName="password"></ion-input>
+            <ion-input maxlength="16" type="password" placeholder="Password"
+             formControlName="password">
+             <ion-icon class="input-icon" name="key-outline"></ion-icon></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3 text-center">
             <small>Dont have an account? <span (click)="goToSignup()" class="makeItLink">Create one</span></small>
           </ion-col>
           <ion-col size="12">
-            <ion-button [disabled]="loginForm.invalid" (click)="submitLogin()" expand="block">Login <ion-icon name="log-in"></ion-icon></ion-button>
+            <ion-button [ngClass]="{'horizontal-shake': error}"
+             [disabled]="loginForm.invalid"
+              (click)="submitLogin()" expand="block">Login
+              <ion-spinner *ngIf="loginSpinner"
+              class="button-icon" name="crescent"></ion-spinner>
+               <ion-icon *ngIf="!loginSpinner" name="log-in"></ion-icon>
+              </ion-button>
           </ion-col>
         </ion-row>
       </form>

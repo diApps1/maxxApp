@@ -119,6 +119,7 @@ export class LandingPagePage implements OnInit {
   goToNext(cat:any) {
     console.log(cat)
     if(cat.subcategories.length != 0) {
+      console.log(cat.subcategories)
       const options = {queryParams: {data: JSON.stringify(cat.subcategories) , subCetagory : true}};
       this.router.navigate(['sub-cetagory'] , options);
   } else {

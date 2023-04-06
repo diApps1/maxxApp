@@ -18,6 +18,9 @@ import {
   useAnimation,
   query,
 } from '@angular/animations';
+import { ApiService } from '../services/api.service';
+import { timestamp } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-service-providers-detail',
   templateUrl: './service-providers-detail.page.html',
@@ -72,6 +75,16 @@ export class ServiceProvidersDetailPage implements OnInit {
   productData : any;
   state : any = '';
   enter:any  ='';
+  totalPrice:any;
+
+  createbooking : boolean = false;
+  address : any = '';
+  other_address : any = '';
+  date_time : any = '';
+
+  checkoutSpinner : boolean = false;
+  error : boolean = false;
+
   cameraOptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
@@ -91,8 +104,8 @@ export class ServiceProvidersDetailPage implements OnInit {
     {dayName : 'SUN' , active : false},
 ];
   constructor(private location : Location,private camera: Camera,
-    private dom : DomSanitizer,
-    public actionSheetController: ActionSheetController,
+    private dom : DomSanitizer, private api_service : ApiService,
+    public actionSheetController: ActionSheetController,private auth_service :AuthService,
 
     private toastController: ToastController , private route:ActivatedRoute,
     private router : Router,
@@ -102,7 +115,7 @@ export class ServiceProvidersDetailPage implements OnInit {
       //   // this.productsArray = JSON.parse(params.params.data);
       // console.log(this.productData)
       // })
-
+      
       
      }
 
@@ -115,11 +128,13 @@ export class ServiceProvidersDetailPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.getProfile();
     this.state = this.state ? 'inactive' : 'active';
     this.enter = this.enter ? '' : 'enter';
 
     this.cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : '';
     console.log(this.cartArray)
+   this.calculatePrice();
     //  setTimeout(() => {
     //   this.localNotifications.schedule({
     //     title: 'My first notification',
@@ -130,10 +145,22 @@ export class ServiceProvidersDetailPage implements OnInit {
     
   }
 
+  getProfile() {
+    this.auth_service.getProfileByID().subscribe((res:any) => {
+      if(res.success) {
+        this.address = res.data.address;
+      }
+    })
+  }
 
 
+  date(event:any) {
+    console.log(event.target.value)
+    this.date_time = event.target.value;
+  }
   emptyCart() {
-    
+    localStorage.removeItem('cart');
+    this.cartArray = [];
   }
 
   deleteFromCart(index:any) {
@@ -141,16 +168,55 @@ export class ServiceProvidersDetailPage implements OnInit {
     this.cartArray.splice(index , 1);
     this.event_provider.addCart(this.cartArray)
     console.log(this.cartArray)
+    this.calculatePrice();
+    
   }
 
-
+calculatePrice() {
+  this.totalPrice = 0;
+  this.cartArray.forEach((elem:any) => {
+    let counted_price = elem.price * elem.quantity;
+    this.totalPrice = this.totalPrice + counted_price;
+    console.log(this.totalPrice)
+  })
+}
 
   back() {
     this.location.back();
   }
 
   bookMe() {
-    this.router.navigateByUrl('payment');
+    this.checkoutSpinner = true;
+    let toTimestamp =  Date.parse(this.date_time) / 1000;
+    console.log(toTimestamp)
+    let body = {
+      dateTime : toTimestamp.toString(),
+      address : this.other_address ? this.other_address : this.address,
+      total_amount : this.totalPrice,
+      products : this.cartArray,
+    }
+    console.log(body)
+    this.api_service.createBooking(body).subscribe((res:any) => {
+      console.log(res)
+          if(res.success) {
+            let param = {
+              amount : this.totalPrice,
+              booking_id : res.booking.id
+            }
+            const options = {queryParams: {data: JSON.stringify(param)}};
+            this.router.navigate(['payment'] , options);
+            this.checkoutSpinner = false;
+          } else {
+            this.checkoutSpinner = false;
+            this.makeErrorTrue();
+            this.toaster.presentToast('you are using as a guest please create account first' , 'danger');
+            this.router.navigateByUrl('signup')
+          }
+    } , (err:any) => {
+      this.checkoutSpinner = false;
+      this.makeErrorTrue();
+      this.toaster.presentToast('you missed something review your booking and try again' , 'danger')
+    })
     //    this.localNotifications.schedule({
     //     title: 'sorry for regret.!',
     //     text: 'This feature is coming soon',
@@ -159,6 +225,29 @@ export class ServiceProvidersDetailPage implements OnInit {
     //   });
     // this.toaster.presentToast('coming soon' , 'warning');
   }
+
+  createBooking() {
+    if(localStorage.getItem('access_token')) {
+      if(this.cartArray.length != 0) {
+        this.createbooking = true;
+      } else {
+        this.toaster.presentToast('your cart is empty' , 'warning');
+      }
+    } else {
+      this.toaster.presentToast('sorry you are using guest mode please sign up first' , 'warning');
+      this.router.navigateByUrl('signup');
+    }
+  }
+
+  makeErrorTrue(from?:any) {
+  
+    this.error = true;
+    setTimeout(() => {
+      this.error = false;
+    }, 1000);
+ 
+
+}
 
 
 

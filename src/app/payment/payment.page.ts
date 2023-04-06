@@ -1,14 +1,60 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { StripeCardComponent, StripeService } from 'ngx-stripe';
+import { ApiService } from '../services/api.service';
+import { ToasterService } from '../toaster.service';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
 })
-export class PaymentPage implements OnInit {
 
-  constructor(private location : Location) { }
+export class PaymentPage implements OnInit {
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  booking_id : any ;
+  amount : any ;
+  stripe_token : any;
+  payment_method : any ;
+paymentSpinner : boolean = false;
+error : boolean = false;
+cardName : any;
+  cardOptions: StripeCardElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        fontWeight: '300',
+        // fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        padding : '50px',
+        
+        '::placeholder': {
+          color: '#31325F'
+        }
+      }
+    }
+  };
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en'
+  };
+
+
+  paymentMethod : any;
+  constructor(private location : Location,private stripeService: StripeService,
+    private toast : ToasterService,private router : Router,private route : ActivatedRoute,
+    private api_Service : ApiService) {
+        this.route.queryParamMap.subscribe((res:any) => {
+          let data = JSON.parse(res.params.data)
+          console.log(data.booking_id)
+          this.booking_id = data.booking_id;
+          this.amount = data.amount;
+        })
+   }
 
   ngOnInit() {
   }
@@ -16,5 +62,62 @@ export class PaymentPage implements OnInit {
   back() {
     this.location.back();
   }
+  enablePaymentMethod (event:any) {
+    console.log(event.target.value);
+  }
+
+  createToken(): void {
+    this.paymentSpinner = true;
+    const name = this.cardName;
+    this.stripeService
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
+        if (result.token) {
+          // Use the token
+          console.log(result.token.id);
+          this.stripe_token = result.token.id;
+          if(this.stripe_token) {
+            let body = {
+              stripe_token : this.stripe_token,
+              booking_id : this.booking_id,
+              amount : this.amount,
+              payment_method : 'credit_card'
+            }
+              this.api_Service.createPayment(body).subscribe((res:any) => {
+                  if(res.success) {
+                    this.paymentSpinner = false;
+                    this.toast.presentToast('you have succesfully booked a service' , 'success');
+                    this.paymentMethod = '';
+                    this.router.navigateByUrl('landing-page');
+                  } else {
+                    this.paymentSpinner = false;
+                    this.makeErrorTrue();
+                    this.toast.presentToast('sorry your payment method is not valid' , 'warning')
+                  }
+              },(err:any) => {
+                this.paymentSpinner = false;
+                this.makeErrorTrue();
+                this.toast.presentToast('something went wrong with your card Please Try Again' , 'danger')
+
+              })
+          }
+        } else if (result.error) {
+          // Error creating the token
+          this.paymentSpinner = false;
+          this.makeErrorTrue();
+          this.toast.presentToast(result.error.message , 'danger')
+        }
+      });
+  }
+
+  makeErrorTrue(from?:any) {
+  
+    this.error = true;
+    setTimeout(() => {
+      this.error = false;
+    }, 1000);
+ 
+
+}
 
 }

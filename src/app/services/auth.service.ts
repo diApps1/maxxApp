@@ -31,7 +31,7 @@ logout() {
 }
 
 
-getProfileByID(token : any) {
+getProfileByID(token? : any) {
   this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
   let api = this.initial_url + 'profile';
   return this.http.get(api , {headers : this._headers} );
@@ -40,6 +40,30 @@ updateProfile(body:any) {
   this._headers = this._headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
 
   let api = this.initial_url + 'profile-update';
+  return this.http.post(api , body , {headers : this._headers} );
+}
+
+sendOtp(body:any) {
+  let api = this.initial_url + 'resend-code';
+  return this.http.post(api , body , {headers : this._headers} );
+}
+
+verifyOtp(body:any) {
+  let api = this.initial_url + 'verify-code';
+  return this.http.post(api , body , {headers : this._headers} );
+}
+
+sendEmailOtp(body:any) {
+  let api = this.initial_url + 'forgot-password';
+  return this.http.post(api , body , {headers : this._headers} );
+}
+verifyMailOtp(body:any) {
+  let api = this.initial_url + 'verify-mail';
+  return this.http.post(api , body , {headers : this._headers} );
+}
+
+updatePassword(body:any) {
+  let api = this.initial_url + 'update-password';
   return this.http.post(api , body , {headers : this._headers} );
 }
 
