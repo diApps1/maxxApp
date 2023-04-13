@@ -31,7 +31,7 @@ c_password : any = ''
       this.route.queryParamMap.subscribe((res:any) => {
         console.log(res)
         this.userData = JSON.parse(res.params.data);
-        console.log(this.userData)
+        this.email = this.userData.email;
       })
      }
 
@@ -60,27 +60,7 @@ c_password : any = ''
     this.toaster.presentToast('coming soon' , 'warning')      
   }
   sendCode() {
-    if(this.userData) {
-      this.otpSpinner = true;
-      let body = {
-        phone : '+923017649437'
-      }
-      this.auth_service.sendOtp(body).subscribe((res:any) => {
-          if(res.success) {
-            this.otpSpinner = false;
-            this.codeSent = true;
-            this.toaster.presentToast('Code sent on your email succesfully' , 'success')      
-          } else {
-            this.toaster.presentToast('something went wrong' , 'warning')      
-            this.otpSpinner = false;
-            this.makeErrorTrue('otp');
-          }
-      },(err:any) => {
-        this.otpSpinner = false;
-        this.toaster.presentToast('unable to send otp at a moment , try again later' , 'danger')      
-        this.makeErrorTrue('otp');
-      })
-    } else {
+  
       this.otpSpinner = true;
       let body = {
         email : this.email
@@ -100,36 +80,11 @@ c_password : any = ''
         this.toaster.presentToast('unable to send otp at a moment , try again later' , 'danger')      
         this.makeErrorTrue('otp');
       })
-    }
  
   }
   codeVerify(event : any)  {
 
-    if(this.userData) {
-      if(event.target.value.length == '6') {
-        this.verifySpinner = true;
-          let body = {
-            phone : '+923017649437',
-            code : event.target.value
-          }  
-        this.auth_service.verifyOtp(body).subscribe((res:any) => {
-            if(res.success) {
-              this.verifySpinner = false;
-              this.codeSent = false;
-              this.codeVerified = true;
-              this.toaster.presentToast('Code verified succesfully' , 'success')  ;    
-            } else {
-              this.makeErrorTrue('verify');
-              this.verifySpinner = false;
-              this.toaster.presentToast('invalid code' , 'warning');
-            }
-          } , (err:any) => {
-            this.makeErrorTrue('verify');
-            this.verifySpinner = false;
-            this.toaster.presentToast('something went wrong' , 'danger');
-          })
-      }
-    } else {
+ 
       if(event.target.value.length == '6') {
         this.verifySpinner = true;
           let body = {
@@ -153,7 +108,6 @@ c_password : any = ''
             this.toaster.presentToast('something went wrong' , 'danger');
           })
       }
-    }
 
     
    
@@ -168,10 +122,16 @@ c_password : any = ''
       }
       this.auth_service.updatePassword(body).subscribe((res:any) => {
         if(res.success) {
-          this.changePasswordSpinner = true;
-          this.toaster.presentToast('password changed succesfully' , 'success');
-          this.router.navigateByUrl('login');
-          localStorage.clear();
+          if(this.userData) {
+            this.changePasswordSpinner = true;
+            this.toaster.presentToast('password changed succesfully' , 'success');
+            this.router.navigateByUrl('profile');
+            } else {
+              this.changePasswordSpinner = true;
+              this.toaster.presentToast('password changed succesfully' , 'success');
+              this.router.navigateByUrl('login');
+              localStorage.clear();
+                }
           }
       })
     } else {

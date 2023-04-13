@@ -22,6 +22,10 @@ export class NotificationsPage implements OnInit {
     this.location.back();
   }
 
+  async navigate() {
+    this.router.navigateByUrl('tabs/tab1');
+}
+
   handleRefresh(event:any) {
     setTimeout(() => {
       this.ionViewDidEnter();

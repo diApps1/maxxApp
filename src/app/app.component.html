@@ -9,8 +9,8 @@
         <ion-label>Home</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button [@bounce]="state">
-        <img class="img-fluid" src="assets/img/Cart.png" >
+      <ion-tab-button  (click) = "setState()">
+        <img class="img-fluid" src="assets/img/Cart.png" [@bounce]="state" >
         <ion-label>Cart</ion-label>
       </ion-tab-button>
     

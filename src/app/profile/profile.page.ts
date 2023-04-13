@@ -32,6 +32,7 @@ export class ProfilePage implements OnInit {
   token :any ;
   extraData : any;
   userData : any;
+  imageUrl : any = 'https://backendtestingsetup.tech';
 
   updateSpinner : boolean = false;
   error : boolean = false;
@@ -65,7 +66,10 @@ export class ProfilePage implements OnInit {
 
 getProfile() {
       this.auth_service.getProfileByID(localStorage.getItem('access_token')).subscribe((res:any) => {
-        console.log(res);
+        // console.log(res.data.photo);
+        // let img = 'data:image/jpeg;base64,' + btoa('https://backendtestingsetup.tech/public/storage/user/uaSH20dKidOJrjmuKUXSCQ72PZ8vaOmht5tykpLM.bin');
+        // this.profile_picture = img;
+        // console.log(img)
         if(res.success) {
           this.userData = res.data;
           this.firstName = res.data.first_name;
@@ -74,6 +78,7 @@ getProfile() {
           this.phone = res.data.phone;
           this.address = res.data.address;
           this.userId = res.data.id;
+          this.profile_picture = this.imageUrl + res.data.photo
         } else {
           this.toaster.presentToast(res.message , 'warning');
         }
@@ -169,14 +174,21 @@ removeProfileImage() {
 
 getPicture(opts : any) {
   this.camera.getPicture(opts).then((imageData) => {
-    console.log(imageData , 'yahan gaya')
+    // console.log(imageData , 'yahan gaya')
       imageData = 'data:image/jpeg;base64,' + imageData;
-      console.log(imageData , 'yahan aya')
-      let blob = this.convertToBlob(imageData);
-      this.profile_picture = blob;
-      console.log(this.profile_picture)
-      // this.profile_picture = imageData ? this.dom.bypassSecurityTrustResourceUrl(imageData) : "";
+      // console.log(imageData , 'yahan aya')
+      // let blob = this.convertToBlob(imageData);
+      // this.profile_picture = blob;
       // console.log(this.profile_picture)
+      this.profile_picture = imageData;
+            let blob = this.convertToBlob(this.profile_picture);
+            console.log(blob)
+            this.profile_picture_file = blob;
+
+            console.log(this.profile_picture_file)
+
+
+      // this.profile_picture = imageData ? this.dom.bypassSecurityTrustResourceUrl(imageData) : "";
       this.type = 'camera';
   }, (err) => {
       console.log("ERROR", err);
@@ -270,7 +282,7 @@ makeErrorTrue(from?:any) {
   updateProfile() {
     this.updateSpinner = true;
       const formData = new FormData();
-      formData.append('user_photo' , this.profile_picture)
+      // formData.append('user_photo' , this.profile_picture)
       formData.append('id' , this.userId)
       formData.append('first_name' , this.firstName)
       formData.append('last_name' , this.lastName)

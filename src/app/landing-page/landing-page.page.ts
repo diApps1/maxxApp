@@ -108,12 +108,7 @@ export class LandingPagePage implements OnInit {
   }
 
   async navigate() {
-      if (this.isUserLoggedIn) {
-        this.router.navigateByUrl('profile');
-      } else {
-        this.router.navigateByUrl('login');
-      }
-    
+   this.router.navigateByUrl('tabs/tab1');    
   }
 
   goToNext(cat:any) {

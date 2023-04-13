@@ -4,13 +4,13 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="3">
+        <ion-col size="3" class="mt-5">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="6" class="text-left">
+        <ion-col size="6" class="text-left mt-5">
           <img class="img-fluid" src="assets/img/logo.png" alt="">
         </ion-col>
-        <ion-col size="3" class="text-right">
+        <ion-col size="3" class="text-right mt-5">
           <ion-icon (click)="logOut()" class="icon-background dark-b" name="log-out-outline"></ion-icon>
         </ion-col>
       </ion-row>
@@ -26,8 +26,8 @@
 
         <ion-row >
           <ion-col size="12" >
-            <h1>Update Profile!</h1>
-            <!-- <p (click)="goToChangePassword()">Change Password?</p> -->
+            <h1>Profile!</h1>
+            <p (click)="goToChangePassword()">Change Password?</p>
           </ion-col>
 
         
@@ -37,42 +37,47 @@
       
 
         <ng-container *ngIf="userData">
-          <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
-            <!-- <input type="file" (change)="check($event)"> -->
-            <ion-icon type="file"
+          <!-- <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
+            <ion-icon type="file" *ngIf="!profile_picture"
             (click)="presentAction($event)" class="icon-background" name="person"></ion-icon>
-          </ion-col>
+            <ion-avatar (click)="presentAction($event)" *ngIf="profile_picture">
+              <img alt="Silhouette of a person's head" 
+              src="{{profile_picture}}" />
+            </ion-avatar>
+            
+          </ion-col> -->
+
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="person-outline"></ion-icon>
             <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
              placeholder="First Name">
-             <ion-icon class="input-icon" name="person-outline"></ion-icon></ion-input>
+             </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="person-outline"></ion-icon>
             <ion-input [(ngModel)]="lastName"
              [ngModelOptions]="{standalone: true}"
-              placeholder="Last Name"><ion-icon class="input-icon" name="person-outline"></ion-icon></ion-input>
+              placeholder="Last Name"></ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="mail-outline"></ion-icon>
             <ion-input [(ngModel)]="email"
              [ngModelOptions]="{standalone: true}"
-              placeholder="Email" readonly><ion-icon class="input-icon" name="mail-outline"></ion-icon></ion-input>
+              placeholder="Email" readonly></ion-input>
           </ion-col>
-          <!-- <ion-col size="12" class="mb-3">
-            <ion-select [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" interface="popover" placeholder="gender">
-              <ion-select-option value="male">Male</ion-select-option>
-              <ion-select-option value="female">Female</ion-select-option>
-            </ion-select>
-          </ion-col> -->
+        
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="call-outline"></ion-icon>
             <ion-input [(ngModel)]="phone"
              [ngModelOptions]="{standalone: true}"
-              placeholder="phone number" readonly><ion-icon class="input-icon" name="call-outline"></ion-icon></ion-input>
+              placeholder="phone number" readonly></ion-input>
           </ion-col>
 
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="location-outline"></ion-icon>
             <ion-input [(ngModel)]="address"
              [ngModelOptions]="{standalone: true}"
-              placeholder="Address"><ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
+              placeholder="Address"></ion-input>
           </ion-col>
           
           <ion-col size="12">

@@ -82,8 +82,12 @@ h6 {
     font-size: 14px;
 }
 .input-icon {
-  margin-left: 20px;
-  font-size: 26px;
+  color: black !important;
+    background-color: transparent;
+    font-size: 22px;
+    position: absolute;
+    top: 25px;
+    left: 20px;
 }
 
 .quantity {
@@ -128,13 +132,14 @@ ion-button {
   ion-input {
     border-radius: 22px;
     border: 1px solid #212019;
-    --padding-start: 20px !important;
+    --padding-start: 50px !important;
     --padding-end: 20px !important;
     --padding-top: 20px !important;
     --padding-bottom: 20px !important;
     font-size: 16px !important;
     font-weight:normal !important;
   }
+
   ion-select {
     border-radius: 22px;
     border: 1px solid #212019;
@@ -203,7 +208,7 @@ ion-loading.custom-loading {
 .header-wrapper {
   background-color: #ffe400;
   border-radius: 0px;
-  padding: 12px;
+  padding-top: 40px;
 }
 .search-wrapper {
     background: #ffe400;
@@ -369,6 +374,25 @@ ion-datetime {
 	width: 100%;
 	height: 100%;
 	background: #60d7a9;
+}
+
+
+
+ion-action-sheet.my-custom-class .action-sheet-group {
+  background: #fff;
+}
+
+ion-action-sheet.my-custom-class .action-sheet-title {
+  color: #fff;
+}
+
+ion-action-sheet.my-custom-class .action-sheet-cancel::after {
+  background: #fff;
+}
+
+ion-action-sheet.my-custom-class .action-sheet-button,
+ion-action-sheet.my-custom-class .action-sheet-button.ion-focused {
+  color: #000000;
 }
 
 

@@ -5,6 +5,7 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
 import { ApiService } from '../services/api.service';
 import { ToasterService } from '../toaster.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-payment',
@@ -45,7 +46,7 @@ cardName : any;
 
 
   paymentMethod : any;
-  constructor(private location : Location,private stripeService: StripeService,
+  constructor(private location : Location,private stripeService: StripeService,private platform : Platform,
     private toast : ToasterService,private router : Router,private route : ActivatedRoute,
     private api_Service : ApiService) {
         this.route.queryParamMap.subscribe((res:any) => {
@@ -59,30 +60,40 @@ cardName : any;
   ngOnInit() {
   }
 
+  ionViewDidEnter() {
+
+    if(this.platform.is('ios')) {
+      this.paymentMethod = 'c_card'
+    } else {
+      this.paymentMethod = 'apple_pay'
+    }
+
+  }
+
   back() {
     this.location.back();
   }
   enablePaymentMethod (event:any) {
     console.log(event.target.value);
+    this.paymentMethod = event.target.value;
   }
 
   createToken(): void {
     this.paymentSpinner = true;
     const name = this.cardName;
-    this.stripeService
-      .createToken(this.card.element, { name })
-      .subscribe((result) => {
+    if(!this.stripe_token) {
+      this.stripeService.createToken(this.card.element, { name }).subscribe((result) => {
         if (result.token) {
           // Use the token
-          console.log(result.token.id);
           this.stripe_token = result.token.id;
           if(this.stripe_token) {
             let body = {
               stripe_token : this.stripe_token,
               booking_id : this.booking_id,
               amount : this.amount,
-              payment_method : 'credit_card'
+              payment_method : this.paymentMethod == 'c_card' ? 'credit card' : 'debit card'
             }
+            console.log(body);
               this.api_Service.createPayment(body).subscribe((res:any) => {
                   if(res.success) {
                     this.paymentSpinner = false;
@@ -108,6 +119,34 @@ cardName : any;
           this.toast.presentToast(result.error.message , 'danger')
         }
       });
+    } else {
+      let body = {
+        stripe_token : this.stripe_token,
+        booking_id : this.booking_id,
+        amount : this.amount,
+        payment_method : this.paymentMethod == 'c_card' ? 'credit card' : 'debit card'
+      }
+      this.api_Service.createPayment(body).subscribe((res:any) => {
+        if(res.success) {
+          this.paymentSpinner = false;
+          this.toast.presentToast('you have succesfully booked a service' , 'success');
+          this.paymentMethod = '';
+          this.stripe_token = '';
+          localStorage.removeItem('cart');
+          this.router.navigateByUrl('landing-page');
+        } else {
+          this.paymentSpinner = false;
+          this.makeErrorTrue();
+          this.toast.presentToast('sorry your payment method is not valid' , 'warning')
+        }
+    },(err:any) => {
+      this.paymentSpinner = false;
+      this.makeErrorTrue();
+      this.toast.presentToast('something went wrong with your card Please Try Again' , 'danger')
+
+    })
+    }
+    
   }
 
   makeErrorTrue(from?:any) {

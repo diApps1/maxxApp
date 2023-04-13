@@ -15,7 +15,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     FormsModule,
     IonicModule,
     PaymentPageRoutingModule,
-    NgxStripeModule.forRoot('pk_test_51MjxM2CPFpp8yabJE3D5LwYGIoq1TkeK7qHNIyAhyLGIUunzqiqJ6zP1ixGYv7KodBpTo6yicSWYN7pzudHB7Kyc00H7XHrEWk'),
+    NgxStripeModule.forRoot('pk_test_51Ml8VrJ9QAFDxHDSx88mNmJ8AfQQO0bglT5xckcosnbD2onO2rRyXeum6iKMB53Cgig9yssHQe7rlp2pjROal2Fm00BdkJihiM'),
   ],
   declarations: [PaymentPage]
 })

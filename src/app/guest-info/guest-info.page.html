@@ -8,7 +8,7 @@
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
         <ion-col size="8" class="text-right">
-          <h6 (click)="goToChangePassword()">Forgot your password?</h6>
+          <h6 >Forgot your password?</h6>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -16,34 +16,43 @@
 
   <div class="login-content-wrapper">
     <ion-grid class="login-content-outer">
-      <form [formGroup]="loginForm">
+      <form >
         <ion-row>
           <ion-col size="12" >
-            <h1>Welcome Back!</h1>
-            <p>Login to your account</p>
+            <h1>Guest Mode!</h1>
+            <p>Fill this information for booking process</p>
           </ion-col>
-          <!-- <ion-col size="12" class="text-center" style="display: flex; justify-content: center;">
-            <img style="background-color: #ffe400;border-radius: 12px; padding: 12px;box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);"
-             class="img-fluid" width="120px" src="assets/img/logo.png" alt="">
-          </ion-col> -->
+       
           <ion-col size="12" class="mb-3">
             <ion-icon class="input-icon" name="mail-outline"></ion-icon>
-            <ion-input  placeholder="User Name or Email" formControlName="email">
+            <ion-input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name">
             </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
-            <ion-icon class="input-icon" name="key-outline"></ion-icon>
-            <ion-input maxlength="16" type="password" placeholder="Password"
-             formControlName="password">
+            <ion-icon class="input-icon" name="mail-outline"></ion-icon>
+            <ion-input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name">
             </ion-input>
           </ion-col>
-          <ion-col size="12" class="mb-3 text-center">
-            <small>Dont have an account? <span (click)="goToSignup()" class="makeItLink">Create one</span></small>
+          <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon"  name="mail-outline"></ion-icon>
+            <ion-input  [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+            </ion-input>
           </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-label style="position: absolute;
+            top: 24px;
+            left: 20px"><small>+971</small></ion-label>
+              <ion-input [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}"
+              maxlength="14"
+               type="tel" placeholder="">
+              </ion-input>
+          </ion-col>
+       
+          
           <ion-col size="12">
             <ion-button [ngClass]="{'horizontal-shake': error}"
-             [disabled]="loginForm.invalid"
-              (click)="submitLogin()" expand="block">Login
+             (click)="continueProcess()"
+               expand="block">Continue Checkout Process
               <ion-spinner *ngIf="loginSpinner"
               class="button-icon" name="crescent"></ion-spinner>
                <ion-icon *ngIf="!loginSpinner" name="log-in"></ion-icon>

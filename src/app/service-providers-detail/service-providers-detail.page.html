@@ -4,10 +4,10 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="3">
+        <ion-col size="3" class="mt-5">
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="6" class="mt-5">
         <img src="assets/img/logo.png" alt="">
         </ion-col>
       </ion-row>
@@ -119,24 +119,35 @@
         <ion-col size="12" class="text-center">
           <h3>Create booking</h3>
         </ion-col>
-        <ion-col size="12" class="text-left">
+        <ion-col size="12" class="text-left" *ngIf="!guestUser">
           <p>Default Address</p>
         </ion-col>
 
-        <ion-col size="12">
+        <ion-col size="12" *ngIf="!guestUser">
           <ion-textarea [(ngModel)]="address"
            class="custom-textarea" placeholder="Address" [autoGrow]="true"
             value="142-A Sheraz Villas Phase 3 Gulberg 3 Cantt Lahore">
           </ion-textarea>
         </ion-col>
 
-        <ion-col size="12" class="text-left">
+        <ion-col size="12" class="text-left" *ngIf="!guestUser">
           <p>Other Address (optional)</p>
         </ion-col>
 
-        <ion-col size="12">
+        <ion-col size="12" *ngIf="!guestUser">
           <ion-textarea [(ngModel)]="other_address"
            class="custom-textarea" placeholder="Enter Other Address(optional)" [autoGrow]="true" value="">
+          </ion-textarea>
+        </ion-col>
+
+        <ion-col size="12" class="text-left" *ngIf="guestUser">
+          <p> Address</p>
+        </ion-col>
+
+        <ion-col size="12" *ngIf="guestUser">
+          <ion-textarea [(ngModel)]="address"
+           class="custom-textarea" placeholder="Address" [autoGrow]="true"
+            value="142-A Sheraz Villas Phase 3 Gulberg 3 Cantt Lahore">
           </ion-textarea>
         </ion-col>
       </ion-row>

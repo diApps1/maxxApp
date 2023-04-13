@@ -4,10 +4,10 @@
   <div class="login-header-wrapper">
     <ion-grid>
       <ion-row class="mt-5">
-        <ion-col size="3" >
+        <ion-col size="3" class="mt-5" >
           <ion-icon (click)="back()" class="icon-background dark-b" name="arrow-back-sharp"></ion-icon>
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="6" class="mt-5">
           <img src="assets/img/logo.png" alt="">
           </ion-col>
         <!-- <ion-col size="8" class="text-right">
@@ -35,26 +35,26 @@
         <ion-row *ngIf="page[0].active">
           
           <ion-col size="12" class="mb-3">
-            
+            <ion-icon class="input-icon" name="person-outline"></ion-icon>
             <ion-input 
              maxlength="8" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
              placeholder="First Name">
-             <ion-icon class="input-icon" name="person-outline"></ion-icon>
             </ion-input>
              
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="person-outline"></ion-icon>
             <ion-input maxlength="8"
              [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"
               placeholder="Last Name">
-              <ion-icon class="input-icon" name="person-outline"></ion-icon>
             </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="mail-outline"></ion-icon>
             <ion-input
              [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
               placeholder="Email">
-              <ion-icon class="input-icon" name="mail-outline"></ion-icon></ion-input>
+            </ion-input>
              <!-- <ion-label style="position: absolute;
              top: 24px;
              right: 18px;
@@ -71,19 +71,21 @@
         <ion-row *ngIf="page[1].active">
           
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="location-outline"></ion-icon>
             <ion-input [(ngModel)]="street"
              [ngModelOptions]="{standalone: true}" placeholder="Street">
-             <ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
-          </ion-col>
-          <ion-col size="12" class="mb-3">
-            <ion-input [(ngModel)]="city" [ngModelOptions]="{standalone: true}" placeholder="City">
-              <ion-icon class="input-icon" name="location-outline"></ion-icon>
             </ion-input>
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="location-outline"></ion-icon>
+            <ion-input [(ngModel)]="city" [ngModelOptions]="{standalone: true}" placeholder="City">
+            </ion-input>
+          </ion-col>
+          <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="location-outline"></ion-icon>
             <ion-input
              [(ngModel)]="state" [ngModelOptions]="{standalone: true}" placeholder="State">
-             <ion-icon class="input-icon" name="location-outline"></ion-icon></ion-input>
+            </ion-input>
           </ion-col>
           <ion-col size="6" class="mb-3">
             <ion-button
@@ -102,26 +104,24 @@
         <ion-row *ngIf="page[2].active">
           
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="key-outline"></ion-icon>
             <ion-input type="password" maxlength="8" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Password"></ion-input>
             <ion-note style="font-size: 11px; margin-left: 13px;">
               Please choose alphanumeric 8 characters strong password </ion-note>
           </ion-col>
           <ion-col size="12" class="mb-3">
+            <ion-icon class="input-icon" name="key-outline"></ion-icon>
             <ion-input  type="password" maxlength="8" [(ngModel)]="c_password" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password"></ion-input>
           </ion-col>
           <ion-col [size]="isOtpVerified ? '12' : '6'" class="mb-3">
           
             <ion-label style="position: absolute;
             top: 24px;
-            left: 14px"><small>+971</small></ion-label>
-              <ion-input style="padding-left: 20px !important;"
+            left: 20px"><small>+971</small></ion-label>
+              <ion-input
               maxlength="14"
                [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" type="tel" placeholder="">
-              </ion-input>
-               <!-- <ion-label (click)="sendCode('mobile')" style="position: absolute;
-             top: 24px;
-             right: 14px"><small>send otp</small></ion-label> -->
-          
+              </ion-input>          
             </ion-col>
           <ion-col size="6" class="mb-3" *ngIf="!otpSent && !isOtpVerified">
             <ion-button [ngClass]="{'horizontal-shake': otpError}"

@@ -27,6 +27,11 @@ export class SubCetagoryPage implements OnInit {
   mainCetagoryTitle : any;
   cartArray : any = [];
   isSubCetagory = '';
+
+  slideDownAnimation : boolean = false;
+  showMoreInfo : boolean = false;
+
+  showMoreInfoArray : any = [];
   
 
   constructor(private route : ActivatedRoute ,private event_provider : EventProviderService,
@@ -111,7 +116,14 @@ export class SubCetagoryPage implements OnInit {
     }, 2000);
   };
 
+  moreInfo (index?:any , type?:any) {
+    if(type == 'sub-cat') {
+      this.showMoreInfoArray[index] ? this.showMoreInfoArray[index] = false : this.showMoreInfoArray[index] = true; 
+    } else {
+    this.showMoreInfo ? this.showMoreInfo = false : this.showMoreInfo = true;
+  }
 
+  }
 
   goToSettings() {
     this.router.navigateByUrl('notifications')
@@ -187,12 +199,7 @@ export class SubCetagoryPage implements OnInit {
 
 
   async navigate() {
-    if (this.isUserLoggedIn) {
-      this.router.navigateByUrl('profile');
-    } else {
-      this.router.navigateByUrl('login');
-    }
-  
+    this.router.navigateByUrl('tabs/tab1');
 }
 
 }

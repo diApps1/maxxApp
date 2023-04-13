@@ -84,6 +84,7 @@ export class ServiceProvidersDetailPage implements OnInit {
 
   checkoutSpinner : boolean = false;
   error : boolean = false;
+  guestUser : boolean = false;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -128,7 +129,12 @@ export class ServiceProvidersDetailPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.getProfile();
+    if(localStorage.getItem('guestData')) {
+        this.guestUser = true;
+    } else {
+      this.guestUser = false;
+      this.getProfile();
+    }
     this.state = this.state ? 'inactive' : 'active';
     this.enter = this.enter ? '' : 'enter';
 
@@ -182,20 +188,42 @@ calculatePrice() {
 }
 
   back() {
-    this.location.back();
+    if(this.createbooking) {
+      this.createbooking = false;
+    } else {
+      this.router.navigateByUrl('landing-page');
+    }
   }
 
   bookMe() {
     this.checkoutSpinner = true;
     let toTimestamp =  Date.parse(this.date_time) / 1000;
-    console.log(toTimestamp)
-    let body = {
-      dateTime : toTimestamp.toString(),
-      address : this.other_address ? this.other_address : this.address,
-      total_amount : this.totalPrice,
-      products : this.cartArray,
+    let body;
+    if(localStorage.getItem('access_token')){
+      body = {
+        dateTime : toTimestamp.toString(),
+        address : this.other_address ? this.other_address : this.address,
+        total_amount : this.totalPrice,
+        products : this.cartArray,
+        is_guest : 'false'
+      }
+    } else{
+      const userJson = localStorage.getItem('guestData');
+      let guestData = userJson !== null ? JSON.parse(userJson) : '';
+    
+      body = {
+        dateTime : toTimestamp.toString(),
+        address : this.other_address ? this.other_address : this.address,
+        total_amount : this.totalPrice,
+        products : this.cartArray,
+        is_guest : 'true',
+        first_name : guestData.firstName,
+        last_name : guestData.lastName,
+        email : guestData.email,
+        phone : guestData.phone
+      }
     }
-    console.log(body)
+   
     this.api_service.createBooking(body).subscribe((res:any) => {
       console.log(res)
           if(res.success) {
@@ -209,22 +237,17 @@ calculatePrice() {
           } else {
             this.checkoutSpinner = false;
             this.makeErrorTrue();
-            this.toaster.presentToast('you are using as a guest please create account first' , 'danger');
-            this.router.navigateByUrl('signup')
+            this.toaster.presentToast('Something Went Wrong Here,Pleasy try again Later' , 'danger');
           }
     } , (err:any) => {
       this.checkoutSpinner = false;
       this.makeErrorTrue();
       this.toaster.presentToast('you missed something review your booking and try again' , 'danger')
     })
-    //    this.localNotifications.schedule({
-    //     title: 'sorry for regret.!',
-    //     text: 'This feature is coming soon',
-    //     icon : 'assets/img/lamp-icon.png',
-    //     foreground: true
-    //   });
-    // this.toaster.presentToast('coming soon' , 'warning');
   }
+
+
+
 
   createBooking() {
     if(localStorage.getItem('access_token')) {
@@ -234,8 +257,13 @@ calculatePrice() {
         this.toaster.presentToast('your cart is empty' , 'warning');
       }
     } else {
-      this.toaster.presentToast('sorry you are using guest mode please sign up first' , 'warning');
-      this.router.navigateByUrl('signup');
+      if(localStorage.getItem('guestData')) {
+        this.createbooking = true;
+      } else {
+        this.router.navigateByUrl('guest-info');
+      }
+      // this.toaster.presentToast('Sorry, you are using Guest Mode please LOGIN or SIGNUP' , 'warning');
+      // this.router.navigateByUrl('login');
     }
   }
 
