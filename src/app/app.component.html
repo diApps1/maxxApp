@@ -5,12 +5,13 @@
   <ion-tabs>
     <ion-tab-bar mode="ios" slot="bottom" *ngIf="!isHideFooter">
       <ion-tab-button tab="landing-page">
-        <img class="img-fluid" src="assets/img/Home.png" >
+        <img class="img-fluid" src="assets/img/Home.png"  >
         <ion-label>Home</ion-label>
       </ion-tab-button>
 
       <ion-tab-button  (click) = "setState()">
-        <img class="img-fluid" src="assets/img/Cart.png" [@bounce]="state" >
+        <ion-badge>{{cartArray.length}}</ion-badge>
+        <img class="img-fluid" src="assets/img/Cart.png">
         <ion-label>Cart</ion-label>
       </ion-tab-button>
     

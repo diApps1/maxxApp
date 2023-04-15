@@ -7,6 +7,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { LoaderService } from '../services/loader.service';
 import { ToasterService } from '../toaster.service';
+import { EventProviderService } from '../services/event-provider.service';
 
 @Component({
   selector: 'app-profile',
@@ -46,6 +47,7 @@ export class ProfilePage implements OnInit {
 
 
   constructor(private location : Location,private loader : LoaderService,private camera: Camera,
+    private event_provider : EventProviderService,
     private dom : DomSanitizer,public actionSheetController: ActionSheetController,
     private router : Router,private auth_service : AuthService,
     private toaster : ToasterService) { }
@@ -264,6 +266,7 @@ makeErrorTrue(from?:any) {
       this.auth_service.logout().subscribe((res:any) => {
         if(res.success) {
           localStorage.clear();
+          this.event_provider.addCart([]);
           this.isUserLoggedIn = false;
           this.toaster.presentToast('Log out succesfully' , 'success');
           this.router.navigateByUrl('landing-page');

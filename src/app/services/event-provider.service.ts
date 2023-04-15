@@ -18,7 +18,8 @@ export class EventProviderService {
 hideFooter(data:boolean) {
   this.hidefooter.next(data);
 }
-addCart(data:any) {
+addCart(data?:any) {
+  console.log(data)
   this.addcart.next(data);
   localStorage.setItem('cart' , JSON.stringify(data))
 }

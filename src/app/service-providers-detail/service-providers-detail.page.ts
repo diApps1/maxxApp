@@ -129,6 +129,7 @@ export class ServiceProvidersDetailPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.createbooking = false;
     if(localStorage.getItem('guestData')) {
         this.guestUser = true;
     } else {
@@ -138,7 +139,7 @@ export class ServiceProvidersDetailPage implements OnInit {
     this.state = this.state ? 'inactive' : 'active';
     this.enter = this.enter ? '' : 'enter';
 
-    this.cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : '';
+    this.cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')!) : '';
     console.log(this.cartArray)
    this.calculatePrice();
     //  setTimeout(() => {
@@ -165,8 +166,10 @@ export class ServiceProvidersDetailPage implements OnInit {
     this.date_time = event.target.value;
   }
   emptyCart() {
-    localStorage.removeItem('cart');
     this.cartArray = [];
+    localStorage.setItem('cart' , '');
+    localStorage.removeItem('cart');
+    this.event_provider.addCart(this.cartArray);
   }
 
   deleteFromCart(index:any) {
@@ -257,12 +260,17 @@ calculatePrice() {
         this.toaster.presentToast('your cart is empty' , 'warning');
       }
     } else {
-      if(localStorage.getItem('guestData')) {
-        this.createbooking = true;
+      if(this.cartArray.length != 0) {
+        if(localStorage.getItem('guestData')) {
+          this.createbooking = true;
+        } else {
+          this.router.navigateByUrl('guest-info');
+        this.toaster.presentToast('Sorry, you are logged in a Guest Please provide us with your contact information' , 'warning');
+        }
       } else {
-        this.router.navigateByUrl('guest-info');
+        this.toaster.presentToast('your cart is empty' , 'warning');
       }
-      // this.toaster.presentToast('Sorry, you are using Guest Mode please LOGIN or SIGNUP' , 'warning');
+     
       // this.router.navigateByUrl('login');
     }
   }

@@ -8,16 +8,18 @@
   <ion-header class="header-wrapper">
     <ion-row>
       <ion-col size="3" class="text-center" >
-        <img class="img-fluid" (click)="navigate()"
-        src="assets/img/Home.png" alt="" style="width: 40px; height: 40px;">
+        <ion-icon (click)="back()" style="font-size: 28px;" name="arrow-undo-outline"></ion-icon>
+
+        <!-- <img class="img-fluid" (click)="navigate()"
+        src="assets/img/welcome.png" alt="" style="width: 30px; height: 30px;"> -->
           <!-- <ion-icon (click)="navigate()"  class="icon-background" name="person"></ion-icon> -->
       </ion-col>
       <ion-col size="6" class="text-center">
-        <img class="img-fluid" src="assets/img/logo.png" alt="" width="120px">
+        <img class="img-fluid" src="assets/img/logo.png" alt="" width="100px">
       </ion-col>
       <ion-col size="3" class="text-center">
         <img class="img-fluid" (click)="goToSettings()"
-         src="assets/img/Notifications.png" alt="" style="width: 40px; height: 40px;">
+         src="assets/img/Notifications.png" alt="" style="width: 30px; height: 30px;">
 
         <!-- <ion-icon (click)="goToSettings()" class="icon-background" name="notifications"></ion-icon> -->
       </ion-col>
@@ -43,12 +45,13 @@
   </ion-grid> -->
 
   <ng-container *ngIf="isSubCetagory == 'true'">
-    <ion-grid *ngFor="let sub_cat of subCatArray;index as i">
-      <div class="services-wrapper">
+   
+      <div class="services-wrapper" *ngFor="let sub_cat of subCatArray;index as i">
         <ion-row>
         
-          <ion-col size="12" class="text-center">
-            <h6>{{sub_cat.name}}</h6>
+          <ion-col size="12" class="text-left"
+          style="border-bottom: 1px solid #ffe400;border-bottom-style: groove;margin-left: 20px;">
+            <h5>{{sub_cat.name}}</h5>
           </ion-col>
 
           <ion-col size="12" class="text-center" *ngIf="subCatArray.length == 0 ">
@@ -61,40 +64,43 @@
         </ion-row>
 
 
-        <ion-row>
-          <ion-col size="12">
+        <!-- <ion-row >
+          <ion-col size="12"> -->
             <ng-container *ngIf="subCatArray.length != '0'">
               <div class="cetagory-wrapper">
-                <ion-col size="12" class="text-center">
-                  <div class="ion-item" >
-                  </div>
-                  <ion-grid *ngFor="let products of sub_cat.products;index as ind">
-                    <ion-row>
-                      <ion-col size="7" class="mt-3 text-left">{{products.name}} [{{products.price}}]AED</ion-col>
-                      <ion-col size="5" class="text-right">
+                    <ion-row style="margin-left: 30px;"
+                    *ngFor="let products of sub_cat.products;index as ind">
+                      <ion-col size="5" class="mt-1 text-left"><small>{{products.name}}</small></ion-col>
+                      <ion-col size="7" class="text-right">
                         <ion-row>
-                          <ion-col size="4" (click)="removeFromCart(products)"
-                           class="text-right"><ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
-                          <ion-col class="text-center " style="font-size: 22px;" size="4">
+                          <ion-col size="6" (click)="removeFromCart(products)"
+                          class="text-right">
+                          <small>{{products.price}}AED</small>
+                        </ion-col>
+
+                          <ion-col size="2" (click)="removeFromCart(products)"
+                           class="text-right">
+                           <ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+
+                          <ion-col class="text-center " style="font-size: 16px;" size="2">
                             <span >{{products.quantity == 0 ? '-' : products.quantity}}</span></ion-col>
-                          <ion-col size="4" (click)="addtoCart(products)"
+
+                          <ion-col size="2" (click)="addtoCart(products)"
                            class="text-left"><ion-icon  class="quantity-icons" name="add"></ion-icon></ion-col>
                         </ion-row>
                     </ion-col>
                     </ion-row>
-                  </ion-grid>
 
                   <ion-row >
                     <ion-col size="12" class="text-center">
-                      <small (click)="moreInfo(i , 'sub-cat')" class="makeItUnderLine">
-                        More Info 
+                      <small (click)="moreInfo(i , 'sub-cat')"  class="makeItUnderLine">
+                        Click for more info 
                         <ion-icon *ngIf="!showMoreInfoArray[i]" name="chevron-down-outline"></ion-icon>
                         <ion-icon *ngIf="showMoreInfoArray[i]" name="chevron-up-outline"></ion-icon>
                       </small>
                     </ion-col>
                   </ion-row>
                
-                </ion-col>
              
              
   
@@ -167,22 +173,21 @@
               </ion-grid>
               </div>
             </ng-container>
-          </ion-col>
-        </ion-row>
+          <!-- </ion-col>
+        </ion-row> -->
       </div>
      
-    </ion-grid>
   </ng-container>
 
 
 
 <ng-container *ngIf="isSubCetagory == 'false'">
-  <ion-grid >
     <div class="services-wrapper">
       <ion-row>
       
-        <ion-col size="12" class="text-center">
-          <h6>{{mainCetagoryTitle}}</h6>
+        <ion-col size="12" class="text-left" 
+        style="border-bottom: 1px solid #ffe400;border-bottom-style: groove;margin-left: 20px;">
+          <h5>{{mainCetagoryTitle}}</h5>
         </ion-col>
 
         <ion-col size="12" class="text-center" *ngIf="subCatArray.length == 0 ">
@@ -195,43 +200,43 @@
       </ion-row>
 
 
-      <ion-row>
-        <ion-col size="12">
           <ng-container *ngIf="subCatArray.length != '0'">
-            <div class="cetagory-wrapper">
-              <ion-col size="12" class="text-center">
-                <div class="ion-item" >
-                </div>
-                <ion-grid *ngFor="let products of subCatArray;index as i">
-                  <ion-row>
-                    <ion-col size="7" class="mt-3 text-left">{{products.name}} [{{products.price}}]AED</ion-col>
-                    <ion-col size="5" class="text-left">
-                      <ion-row>
-                        <ion-col size="4" (click)="removeFromCart(products)"
-                         class="text-right"><ion-icon name="remove"
-                          class="quantity-icons"></ion-icon></ion-col>
-                        <ion-col class="text-center " style="font-size: 22px;" size="4">
-                          <span >{{products.quantity == 0 ? '-' : products.quantity}}</span></ion-col>
-                        <ion-col size="4" (click)="addtoCart(products)"
-                         class="text-left"><ion-icon  class="quantity-icons" name="add"></ion-icon></ion-col>
-                      </ion-row>
-                  </ion-col>
+            <div class="cetagory-wrapper">              
+                  <ion-row style="margin-left: 30px;"
+                  *ngFor="let products of subCatArray;index as i">
+                    <ion-col size="5" class="mt-1 text-left"><small>{{products.name}}</small></ion-col>
+                      <ion-col size="7" class="text-right">
+                        <ion-row>
+                          <ion-col size="6" (click)="removeFromCart(products)"
+                          class="text-right">
+                          <small>{{products.price}}AED</small>
+                        </ion-col>
+
+                          <ion-col size="2" (click)="removeFromCart(products)"
+                           class="text-right">
+                           <ion-icon name="remove" class="quantity-icons"></ion-icon></ion-col>
+
+                          <ion-col class="text-center " style="font-size: 16px;" size="2">
+                            <span >{{products.quantity == 0 ? '-' : products.quantity}}</span></ion-col>
+
+                          <ion-col size="2" (click)="addtoCart(products)"
+                           class="text-left"><ion-icon  class="quantity-icons" name="add"></ion-icon></ion-col>
+                        </ion-row>
+                    </ion-col>
                   
                   </ion-row>
-                </ion-grid>
                 <ion-row>
                   <ion-col size="12" class="text-center">
-                    <small (click)="moreInfo()" class="makeItUnderLine">More Info 
+                    <small (click)="moreInfo()" class="makeItUnderLine" >
+                      Click for more info 
                       <ion-icon *ngIf="!showMoreInfo" name="chevron-down-outline"></ion-icon>
                       <ion-icon *ngIf="showMoreInfo" name="chevron-up-outline"></ion-icon>
+
                     </small>
                   </ion-col>
                 </ion-row>
-              </ion-col>
   
-              
-           
-             
+                           
             <ion-grid class="cetagory-inner" *ngIf="showMoreInfo">  
               <ion-row>
                 <ion-col size="12" class="text-left">
@@ -301,11 +306,8 @@
             </ion-grid>
             </div>
           </ng-container>
-        </ion-col>
-      </ion-row>
     </div>
    
-  </ion-grid>
 </ng-container>
  
  

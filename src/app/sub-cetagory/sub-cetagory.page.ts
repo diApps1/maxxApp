@@ -83,10 +83,12 @@ export class SubCetagoryPage implements OnInit {
   }
 
   getAllSubCetagory() {
-    console.log(this.isSubCetagory)
+    this.cartArray = [];
     if(this.isSubCetagory == 'false') {
       if(localStorage.getItem('cart')) {
+        console.log(this.cartArray)
         this.cartArray = JSON.parse(localStorage.getItem('cart') as string);
+        console.log(this.cartArray)
         this.cartArray.forEach((elem:any , i:any) => {
           const index = this.subCatArray.findIndex((x:any , i:any) => x.id == elem.id);
           this.subCatArray[index] = elem;
@@ -95,7 +97,9 @@ export class SubCetagoryPage implements OnInit {
       }
     } else {
       if(localStorage.getItem('cart')) {
+        console.log(this.cartArray)
         this.cartArray = JSON.parse(localStorage.getItem('cart') as string);
+        console.log(this.cartArray)
         this.subCatArray.forEach((element:any ,ind:any) => {
           this.cartArray.forEach((elem:any , i:any) => {
             const index = this.subCatArray[ind].products.findIndex((x:any , i:any) => x.id == elem.id);
@@ -136,11 +140,12 @@ export class SubCetagoryPage implements OnInit {
     }
   }
   addtoCart(product:any) {
+    console.log(this.cartArray)
     console.log(product)
       product['quantity'] = product.quantity + 1;
-      console.log(this.subCatArray)
       if(this.cartArray.length == 0) {
         this.cartArray.push(product);
+        console.log(this.cartArray)
       }else {
         const index = this.cartArray.findIndex((x:any) => x.id == product.id);
         if(index >= 0) {

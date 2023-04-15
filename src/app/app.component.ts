@@ -64,6 +64,8 @@ cartArray : any =[];
   isUserLoggedIn : boolean = false;
   constructor(private event_provider : EventProviderService,private router : Router ) {
 
+    this.cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')!) : ''
+
     window.addEventListener('keyboardWillShow', () => {
       this.isKeyBoardOpen = true; 
       this.state = '';

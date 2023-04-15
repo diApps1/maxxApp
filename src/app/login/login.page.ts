@@ -35,6 +35,7 @@ export class LoginPage implements OnInit {
   
 
   ionViewDidEnter() {
+    this.loginForm.reset();
     if(localStorage.getItem('access_token')) {
       this.loader_service.presentLoading('you are already login').then(() => {
         this.router.navigateByUrl('profile');
@@ -60,6 +61,7 @@ export class LoginPage implements OnInit {
           this.event_provider.isuserloggedin(true);
           this.toast.presentToast(res.message , 'success');
           localStorage.setItem('access_token' , res.access_token);
+          localStorage.removeItem('guestData');
           this.router.navigateByUrl('landing-page');
         } else {
           this.loginSpinner = false;

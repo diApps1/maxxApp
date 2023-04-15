@@ -21,7 +21,16 @@ export class GuestInfoPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter() {
+    this.firstName = '';
+    this.lastName  = '';
+    this.email = '';
+    this.phoneNumber = '';
+  
+  }
+
   back() {
+    this.router.navigateByUrl('service-providers-detail')
   }
 
   continueProcess() {

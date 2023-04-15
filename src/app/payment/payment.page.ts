@@ -6,6 +6,7 @@ import { StripeCardComponent, StripeService } from 'ngx-stripe';
 import { ApiService } from '../services/api.service';
 import { ToasterService } from '../toaster.service';
 import { Platform } from '@ionic/angular';
+import { EventProviderService } from '../services/event-provider.service';
 
 @Component({
   selector: 'app-payment',
@@ -46,7 +47,8 @@ cardName : any;
 
 
   paymentMethod : any;
-  constructor(private location : Location,private stripeService: StripeService,private platform : Platform,
+  constructor(private location : Location,private event_provider : EventProviderService,
+    private stripeService: StripeService,private platform : Platform,
     private toast : ToasterService,private router : Router,private route : ActivatedRoute,
     private api_Service : ApiService) {
         this.route.queryParamMap.subscribe((res:any) => {
@@ -61,6 +63,8 @@ cardName : any;
   }
 
   ionViewDidEnter() {
+    this.cardName = '';
+    this.stripe_token = '';
 
     if(this.platform.is('ios')) {
       this.paymentMethod = 'c_card'
@@ -81,6 +85,7 @@ cardName : any;
   createToken(): void {
     this.paymentSpinner = true;
     const name = this.cardName;
+    console.log(this.stripe_token)
     if(!this.stripe_token) {
       this.stripeService.createToken(this.card.element, { name }).subscribe((result) => {
         if (result.token) {
@@ -91,14 +96,19 @@ cardName : any;
               stripe_token : this.stripe_token,
               booking_id : this.booking_id,
               amount : this.amount,
+              is_guest : localStorage.getItem('access_token') ? 'false' : 'true',
               payment_method : this.paymentMethod == 'c_card' ? 'credit card' : 'debit card'
             }
             console.log(body);
               this.api_Service.createPayment(body).subscribe((res:any) => {
                   if(res.success) {
                     this.paymentSpinner = false;
+                    this.event_provider.addCart([]);
                     this.toast.presentToast('you have succesfully booked a service' , 'success');
                     this.paymentMethod = '';
+                    localStorage.setItem('cart' , '');
+                    localStorage.removeItem('cart');          
+                    localStorage.removeItem('guestData');          
                     this.router.navigateByUrl('landing-page');
                   } else {
                     this.paymentSpinner = false;
@@ -124,15 +134,18 @@ cardName : any;
         stripe_token : this.stripe_token,
         booking_id : this.booking_id,
         amount : this.amount,
+        is_guest : localStorage.getItem('access_token') ? 'false' : 'true',
         payment_method : this.paymentMethod == 'c_card' ? 'credit card' : 'debit card'
       }
       this.api_Service.createPayment(body).subscribe((res:any) => {
         if(res.success) {
           this.paymentSpinner = false;
-          this.toast.presentToast('you have succesfully booked a service' , 'success');
+          this.toast.presentToast('You have Succesfully Booked a Service' , 'success');
           this.paymentMethod = '';
           this.stripe_token = '';
+          localStorage.setItem('cart' , '');
           localStorage.removeItem('cart');
+          localStorage.removeItem('guestData');
           this.router.navigateByUrl('landing-page');
         } else {
           this.paymentSpinner = false;
